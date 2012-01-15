@@ -5,7 +5,7 @@ files that can be run on other JavaScript platforms such as web browsers, unity,
 * **Reusability** OneJS aims to let developers run NodeJS modules and packages on all environments able to execute JavaScript.
 * **Elegant Modularization** OneJS lets web projects benefit from CommonJS, an excellent proposal that gives us a very well designed way to structure JavaScript source codes.
 * **NPM** It eventually makes it possible for web projects to use NPM. Which is a great tool that makes controlling dependencies even fun!
-* **No Sphagetti Code** No awkward headers, no framework specific definitions which becames deprecated in a few years.
+* **No Spaghetti Code** No awkward headers, no framework-specific definitions which become deprecated in a few years.
 * **Reliable code generation** OneJS doesn't change your source code. It only generates a container environment that simply emulates NodeJS environment.
 * **Unobtrusive Code** The source code OneJS generates wraps projects into a single, isolated JS object.
 
