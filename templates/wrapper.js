@@ -28,7 +28,7 @@ var {{ name }} = (function(global, undefined){
 
   function findModule(workingModule, uri){
     var module = undefined,
-        moduleId = lib.path.join(lib.path.dirname(workingModule.id), uri),
+        moduleId = lib.path.join(lib.path.dirname(workingModule.id), uri).replace(/\.js$/, ''),
         moduleIndexId = lib.path.join(moduleId, 'index'),
         pkg = workingModule.pkg;
 
