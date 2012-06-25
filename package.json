@@ -5,7 +5,7 @@
   "author":"Azer Koculu <azer@kodfabrik.com>",
   "keywords":["build","commonjs","browser"],
   "directories":{ "lib": "./lib" },
-  "main":"./lib/one.js",
+  "main":"./lib",
   "bin":{
     "onejs":"./bin/onejs"
   },
