@@ -5,7 +5,7 @@ lib = (function(exports){
     {{>path}}
 
     return exports;
-  })({});
+  }({}));
 
   {{#include_process}}
 
@@ -13,7 +13,7 @@ lib = (function(exports){
     {{>process}}
 
     return exports;
-  })({});
+  }({}));
 
   {{/include_process}}
 
@@ -26,4 +26,4 @@ lib = (function(exports){
 
   return exports;
 
-})({});
+}({}));

@@ -1,10 +1,11 @@
-var {{ name }} = (function(global, undefined){
+/*global require:false, Buffer:false, process:false, module:false */
+var {{ name }} = (function(unused, undefined){
 
   var DEBUG         = {{#debug}}true{{/debug}}{{^debug}}false{{/debug}},
       pkgdefs       = {},
       pkgmap        = {},
       global        = {},
-      lib           = undefined,
+      lib,
 
       nativeRequire = typeof require != 'undefined' && require,
       nativeBuffer  = typeof Buffer != 'undefined' && Buffer,
@@ -21,7 +22,7 @@ ties = {{{ ties }}};
   }
 
   function findModule(workingModule, uri){
-    var module = undefined,
+    var module,
         moduleId = lib.path.join(lib.path.dirname(workingModule.id), uri).replace(/\.js$/, ''),
         moduleIndexId = lib.path.join(moduleId, 'index'),
         pkg = workingModule.pkg;
@@ -99,7 +100,7 @@ ties = {{{ ties }}};
 
     if(parent.mainModuleId == mod.id){
       parent.index = mod;
-      parent.parents.length == 0 && ( locals.main = mod.call );
+      parent.parents.length === 0 && ( locals.main = mod.call );
     }
 
     parent.modules.push(mod);
@@ -118,7 +119,7 @@ ties = {{{ ties }}};
     pkgdefs[ctx.id] = ctx;
     pkgmap[ctx.name] = ctx;
 
-    arguments.length == 1 && ( pkgmap['main'] = ctx );
+    arguments.length == 1 && ( pkgmap.main = ctx );
   }
 
   function mainRequire(uri){
@@ -154,7 +155,7 @@ ties = {{{ ties }}};
 {{/debug}}
   });
 
-})(this);
+}(this));
 
 {{{packages}}}
 
@@ -165,4 +166,4 @@ if(typeof module != 'undefined' && module.exports ){
     {{ name }}.main();
   }
 
-};
+}

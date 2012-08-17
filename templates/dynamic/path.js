@@ -17,15 +17,15 @@ exports.normalizeArray = function (parts, keepBlanks) {
     if (directory === "." && prev !== undefined) continue;
 
     if (
-      directory === ".."
-      && directories.length
-      && prev !== ".."
-      && prev !== "."
-      && prev !== undefined
-      && (prev !== "" || keepBlanks)
+      directory === ".." &&
+      directories.length &&
+      prev !== ".." &&
+      prev !== "." &&
+      prev !== undefined &&
+      (prev !== "" || keepBlanks)
     ) {
       directories.pop();
-      prev = directories.slice(-1)[0]
+      prev = directories.slice(-1)[0];
     } else {
       if (prev === ".") directories.pop();
       directories.push(directory);
