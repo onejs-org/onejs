@@ -9,8 +9,8 @@ exports.init = function init(options, callback){
     return;
   }
 
-  common.build('test/packages/sai', 'tmp/built_via_manifest_opts.js', [], function(exitCode){
-    callback(undefined, require('../tmp/built_via_manifest_opts'));
+  common.build('test/packages/sai', undefined, [], function(exitCode){
+    callback(undefined, require('../tmp/sai'));
   });
 }
 

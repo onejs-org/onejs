@@ -44,6 +44,7 @@ function build(){
       tie      = argv.tie,
       exclude  = argv.exclude,
       options  = {
+        target  : argv._[2],
         debug   : argv.debug,
         exclude : undefined,
         plain   : argv.plain,
@@ -63,19 +64,15 @@ function build(){
 
   exclude && ( options.exclude = exclude.split(',').filter(function(el){ return el && el.length; }) );
 
-  one.build(manifest, options, function(error, pkg){
+  one(manifest, options, function(error, savedTo, pkg){
     if(error) throw error;
 
-    if(!target){
+    if(!savedTo){
       puts(pkg);
       return;
     }
 
-    one.save(target, pkg, function(error){
-      if(error) throw error;
-      process.exit(0);
-    });
-
+    process.exit(0);
   });
 }
 

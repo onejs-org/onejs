@@ -18,6 +18,30 @@ var test_build     = kick('./build'),
     test_manifest  = kick('./manifest'),
     test_npmignore = kick('./npmignore');
 
+module.exports = {
+  'init': clean,
+  'test_package': test_package,
+  'test_manifest': test_manifest,
+  'test_dependencies':test_dependencies,
+  'test_dependencies_in_parent_dir': test_dependencies_in_parent_dir,
+  'test_modules':test_modules,
+  'test_filterFilename':test_filterFilename,
+  'test_flattenPkgTree':test_flattenPkgTree,
+  'test_id':test_id,
+  'test_loadModule':test_loadModule,
+  'test_objectName':test_objectName,
+  'test_moduleName':test_moduleName,
+  'test_assertListContent':test_assertListContent,
+  'test_targets': test_targets,
+
+  'test_build':test_build,
+  'test_build_debug':test_build_debug,
+  'test_build_plain': test_build_plain,
+
+  'test_npmignore': test_npmignore
+//  'test_programmatic_api': test_programmatic_api
+};
+
 function clean(){
   var callback = arguments[ arguments.length - 1 ],
       rm = child_process.exec('rm -rf tmp/* & mkdir tmp');
@@ -254,62 +278,17 @@ function test_flattenPkgTree(callback){
   callback();
 }
 
-function test_programmatic_api(callback){
-  var manifest = 'test/packages/example-project/package.json',
-      options = {
-        'tie': [{ 'module': 'pi', 'to': 'Math.PI' }, { 'module': 'json', 'to': 'JSON' }],
-        'exclude': ['exclude'],
-        'ignore': ['lib/ignored2', 'lib/ignored3','test'],
-        'debug': false
-      };
+function test_targets(done){
+  var pkg1 = { manifest: { name: 'one' } },
+      pkg2 = { manifest: { name: 'one', web: { save: 'foo' } } },
+      pkg3 = { manifest: { name: 'one', web: { save: { one: 'foo' } } } },
+      pkg4 = { manifest: { name: 'one', web: { save: { one: { to: 'foo' }, two: { to: 'bar', 'url': 'qux' } } } } };
 
-  one.modules.filters.push(function(filename){
-    return filename != 'test/packages/example-project/lib/ignored1.js';
-  });
+  assert.deepEqual(one.targets(pkg1, {}, {}), {});
+  assert.deepEqual(one.targets(pkg1, {}, { target: 'foo' }), { one: { to: 'foo' } });
+  assert.deepEqual(one.targets(pkg2, {}, {}), { one: { to: 'foo' } });
+  assert.deepEqual(one.targets(pkg3, {}, {}), { one: { to: 'foo' } });
+  assert.deepEqual(one.targets(pkg4, {}, {}), { one: { to: 'foo' }, two: { to: 'bar', url: 'qux' } });
 
-  one.build(manifest, options, function(error, sourcecode){
-
-    if(error) {
-      callback(error);
-      return;
-    }
-
-    one.save('./tmp/built_programmatic_api.js', sourcecode, function(error){
-
-      if(error){
-        callback(error);
-        return;
-      }
-
-      one.modules.filters.pop();
-
-      kick({ 'name':'programmatic api build', 'path': './build', 'target': '../tmp/built_programmatic_api' }, callback);
-
-    });
-
-  });
-
+  done();
 }
-
-module.exports = {
-  'init': clean,
-  'test_package': test_package,
-  'test_manifest': test_manifest,
-  'test_dependencies':test_dependencies,
-  'test_dependencies_in_parent_dir': test_dependencies_in_parent_dir,
-  'test_modules':test_modules,
-  'test_filterFilename':test_filterFilename,
-  'test_flattenPkgTree':test_flattenPkgTree,
-  'test_id':test_id,
-  'test_loadModule':test_loadModule,
-  'test_objectName':test_objectName,
-  'test_moduleName':test_moduleName,
-  'test_assertListContent':test_assertListContent,
-
-  'test_build':test_build,
-  'test_build_debug':test_build_debug,
-  'test_build_plain': test_build_plain,
-
-  'test_npmignore': test_npmignore,
-  'test_programmatic_api': test_programmatic_api
-};

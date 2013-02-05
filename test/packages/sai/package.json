@@ -9,9 +9,9 @@
   },
   "web": {
     "save": {
-      "sai": "../../tmp/sai.js",
+      "sai": "../../../tmp/sai.js",
       "tsume": {
-        "to": "../../tmp/tsume.js",
+        "to": "../../../tmp/tsume.js",
         "url": "http://static.kit.ty/js/packages/tsume.js"
       }
     },
