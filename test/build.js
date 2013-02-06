@@ -4,6 +4,21 @@ var assert            = require('assert'),
     common            = require('./common'),
     assertListContent = common.assertListContent;
 
+module.exports = {
+  'init': init,
+  'test_packageTree': test_packageTree,
+  'test_moduleTree': test_moduleTree,
+  'test_packageCtx': test_packageCtx,
+  'test_moduleCtx': test_moduleCtx,
+  'test_require': test_require,
+  'test_module_caching': test_module_caching,
+  'test_useNativeRequire': test_useNativeRequire,
+  'test_parent': test_parent,
+  'test_tie': test_tie,
+  'testMustacheSyntax': testMustacheSyntax
+};
+
+
 function moduleIds(modules){
   return modules.map(function(m){
     return m.id;
@@ -21,34 +36,8 @@ function init(options, callback){
   });
 }
 
-function test_findPkg(mod, callback){
-  assert.equal(mod.findPkg('dependency').name, 'dependency');
-  assert.equal(mod.findPkg('subdependency').name, 'subdependency');
-  assert.equal(mod.findPkg('sibling').name, 'sibling');
-  callback();
-}
-
 function test_useNativeRequire(mod, callback){
   assert.ok( mod.require('combiner').flatten );
-  callback();
-}
-
-function test_findModule(mod, callback){
-  var g = mod.packages.dependency.modules[1];
-
-  g.id != 'g' && ( g = mod.packages.dependency.modules[0] );
-
-  assert.equal(mod.findModule(mod.packages.dependency.index, 'g'), g);
-  callback();
-}
-
-function test_name(mod, callback){
-  assert.equal(mod.name, 'exampleProject');
-  callback();
-}
-
-function test_main(mod, callback){
-  assert.equal(mod.main, mod.packages.main.index.call);
   callback();
 }
 
@@ -105,7 +94,6 @@ function test_moduleCtx(mod, callback){
 
 function test_packageCtx(mod, callback){
   assert.ok(mod.require);
-  assert.equal(mod.name, 'exampleProject');
 
   var p = mod.packages.main;
   assert.equal(p.name, 'example-project');
@@ -153,17 +141,17 @@ function test_require(mod, callback){
 }
 
 function test_module_caching(mod, callback){
-  var now = mod.main().now;
+  var now = mod().now;
   assert.ok(now > +(new Date)-1000);
 
   setTimeout(function(){
-    assert.equal(mod.main().now, now);
+    assert.equal(mod().now, now);
     callback();
   }, 50);
 }
 
 function test_parent(mod, callback){
-  var a = mod.main(),
+  var a = mod(),
       f = a.dependency;
 
   assert.equal(a.parent, undefined);
@@ -183,20 +171,3 @@ function testMustacheSyntax(mod, callback){
   callback();
 }
 
-module.exports = {
-  'init': init,
-  'test_name': test_name,
-  'test_packageTree': test_packageTree,
-  'test_moduleTree': test_moduleTree,
-  'test_packageCtx': test_packageCtx,
-  'test_moduleCtx': test_moduleCtx,
-  'test_findPkg': test_findPkg,
-  'test_findModule': test_findModule,
-  'test_require': test_require,
-  'test_module_caching': test_module_caching,
-  'test_useNativeRequire': test_useNativeRequire,
-  'test_main': test_main,
-  'test_parent': test_parent,
-  'test_tie': test_tie,
-  'testMustacheSyntax': testMustacheSyntax
-};

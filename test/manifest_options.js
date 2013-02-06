@@ -24,3 +24,8 @@ exports.testTies = function(sai, done){
   assert.equal(Number.MAX_VALUE, sai.require('max'));
   done();
 };
+
+exports.testSplitting = function(sai, done){
+  var tsume = require('../tmp/tsume');
+  done();
+};

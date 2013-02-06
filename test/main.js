@@ -62,12 +62,12 @@ function test_assertListContent(callback){
 function test_build_debug(callback){
   common.build('tmp/built_debug.js', ['--debug'], function(exitCode){
     var ep  = require('../tmp/built_debug'),
-        now = ep.main().now;
+        now = ep().now;
 
     assert.equal( ep.debug, true);
 
     setTimeout(function(){
-      assert.ok( ep.main().now > now );
+      assert.ok( ep().now > now );
       callback();
     }, 10);
   });
