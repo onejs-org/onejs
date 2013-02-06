@@ -36,7 +36,6 @@ module.exports = {
   'test_targets': test_targets,
 
   'test_build':test_build,
-  'test_build_debug':test_build_debug,
   'test_build_plain': test_build_plain,
 
   'test_npmignore': test_npmignore
@@ -58,20 +57,6 @@ function test_assertListContent(callback){
   assert.ok(!assertListContent([3,1,4],[3,1,6]));
   assert.ok(!assertListContent([3,1,4],[3,1,4,6]));
   callback();
-}
-
-function test_build_debug(callback){
-  common.build('tmp/built_debug.js', ['--debug'], function(exitCode){
-    var ep  = require('../tmp/built_debug'),
-        now = ep().now;
-
-    assert.equal( ep.debug, true);
-
-    setTimeout(function(){
-      assert.ok( ep().now > now );
-      callback();
-    }, 10);
-  });
 }
 
 function test_build_plain(callback){
