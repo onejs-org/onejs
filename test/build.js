@@ -97,7 +97,6 @@ function test_packageCtx(mod, callback){
 
   var p = mod.packages.main;
   assert.equal(p.name, 'example-project');
-  assert.ok(p.id);
   assert.equal(p.parents.length, 0);
   assert.equal(p.mainModuleId, 'a');
   assert.equal(p.index.id, 'a');
@@ -116,17 +115,17 @@ function test_packageTree(mod, callback){
       fruits        = mod.packages.fruits;
 
   assert.equal( fruits.parents.length, 1 );
-  assert.equal( fruits.parents[0], dependency.id );
+  assert.equal( fruits.parents[0], dependency.name );
 
   assert.equal( subdependency.parents.length, 1 );
-  assert.equal( subdependency.parents[0], dependency.id );
+  assert.equal( subdependency.parents[0], dependency.name );
 
   assert.equal( sibling.parents.length, 2 );
-  assert.equal( sibling.parents[0], dependency.id );
-  assert.equal( sibling.parents[1], main.id );
+  assert.equal( sibling.parents[0], dependency.name );
+  assert.equal( sibling.parents[1], main.name );
 
   assert.equal( dependency.parents.length, 1 );
-  assert.equal( dependency.parents[0], main.id );
+  assert.equal( dependency.parents[0], main.name );
 
   assert.equal( main.parents.length, 0 );
 

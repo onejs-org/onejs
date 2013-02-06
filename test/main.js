@@ -30,6 +30,7 @@ module.exports = {
   'test_id':test_id,
   'test_loadModule':test_loadModule,
   'test_objectName':test_objectName,
+  //'test_manifestOptions': kick('./manifest_options'),
   'test_moduleName':test_moduleName,
   'test_assertListContent':test_assertListContent,
   'test_targets': test_targets,
