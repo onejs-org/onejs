@@ -6,12 +6,11 @@ function module(parent, id, wrapper){
   mod.require = newRequire(mod);
 
   mod.call = function(){
-    {{^debug}}
     if(cached) {
       return mod.exports;
     }
+
     cached = true;
-    {{/debug}}
 
     global.require = mod.require;
 
@@ -32,9 +31,9 @@ function pkg(/* [ parentId ...], wrapper */){
       parents = Array.prototype.slice.call(arguments, 0, arguments.length - 1),
       ctx     = wrapper(parents);
 
-  if(pkgmap.hasOwnProperty(ctx.name)){
-    throw new Error(ctx.name + 'is duplicating itself.');
-  }
+  {{#debug}}
+  if(pkgmap.hasOwnProperty(ctx.name)) throw new Error(ctx.name + 'is duplicating itself.');
+  {{/debug}}
 
   pkgmap[ctx.name] = ctx;
 

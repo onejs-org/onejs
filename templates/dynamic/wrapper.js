@@ -1,4 +1,3 @@
-/*global require:false, module:false */
 var {{ name }} = (function(){
 
   var pkgmap        = {},
@@ -8,10 +7,11 @@ var {{ name }} = (function(){
 
   function exports(){ return main(); };
 
-  exports.require  = function require(uri){ return pkgmap.main.index.require(uri); };
+  exports.main     = exports;
   exports.module   = module;
   exports.packages = pkgmap;
   exports.pkg      = pkg;
+  exports.require  = function require(uri){ return pkgmap.main.index.require(uri); };
 
   {{#debug}}
   exports.debug    = true;
