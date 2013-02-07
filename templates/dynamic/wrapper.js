@@ -21,6 +21,10 @@ var {{ name }} = (function(){
   ties             = {{{ ties }}};
   {{/ties}}
 
+  {{#aliases}}
+  aliases          = {{{ aliases }}};
+  {{/aliases}}
+
   return exports;
 
 {{{require}}}

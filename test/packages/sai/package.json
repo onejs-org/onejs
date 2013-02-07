@@ -19,6 +19,10 @@
       "pi": "Math.PI",
       "max": "Number.MAX_VALUE"
     },
+    "alias": {
+      "monouchi-alias2": "monouchi-alias",
+      "monouchi-alias": "monouchi"
+    },
     "exclude": ["yoku"]
   },
   "license": "BSD"

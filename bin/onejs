@@ -28,7 +28,8 @@ var HELP = ['usage: onejs [action] [manifest] [options]'
           , 'options:'
           , '  --debug                                 Enable SourceURLs.'
           , ''
-          , '  --tie <package name>=<global object>    Create package links to specified global variables. e.g; --tie dom=window.document,jquery=jQuery'
+          , '  --alias <alias>:<package name>          Register an alias name for given package. e.g: request:superagent,crypto:crypto-browserify'
+          , '  --tie <package name>:<global object>    Create package links to specified global variables. e.g; --tie dom:window.document,jquery:jQuery'
           , '  --exclude <package name>                Do not contain specified dependencies. e.g: --exclude underscore,request '
           , '  --plain                                 Builds the package within a minimalistic template for the packages with single module and no dependencies.'
           , ''
@@ -42,23 +43,36 @@ function build(){
   var manifest = argv._[1] || 'package.json',
       target   = argv._[2],
       tie      = argv.tie,
+      alias    = argv.alias,
       exclude  = argv.exclude,
       options  = {
         target  : argv._[2],
         debug   : argv.debug,
         exclude : undefined,
         plain   : argv.plain,
-        tie     : undefined
+        tie     : undefined,
+        alias   : undefined
       };
 
   if(tie){
     options.tie = tie.split(',')
       .filter(function(el){
-        return el && el.indexOf('=') > -1;
+        return el && ( el.indexOf('=') > -1 || el.indexOf(':') > -1);
       })
       .map(function(el){
-        el = el.split('=');
+        el = el.split(/=|:/);
         return { 'module': el[0], 'to': el[1] };
+      });
+  }
+
+  if(alias){
+    options.alias = alias.split(',')
+      .filter(function(el){
+        return el && ( el.indexOf('=') > -1 || el.indexOf(':') > -1);
+      })
+      .map(function(el){
+        el = el.split(/=|:/);
+        return { 'name': el[0], 'orig': el[1] };
       });
   }
 

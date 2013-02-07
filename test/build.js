@@ -15,6 +15,7 @@ module.exports = {
   'test_useNativeRequire': test_useNativeRequire,
   'test_parent': test_parent,
   'test_tie': test_tie,
+  'test_alias': test_alias,
   'testMustacheSyntax': testMustacheSyntax
 };
 
@@ -31,7 +32,7 @@ function init(options, callback){
     return;
   }
 
-  common.build('tmp/built.js', ['--tie json=JSON,pi=Math.PI', '--exclude exclude'], function(exitCode){
+  common.build('tmp/built.js', ['--tie json=JSON,pi=Math.PI', '--alias dependency-alias:dependency,sibling-alias:sibling', '--exclude exclude'], function(exitCode){
     callback(undefined, require('../tmp/built'));
   });
 }
@@ -162,6 +163,12 @@ function test_parent(mod, callback){
 function test_tie(mod, callback){
   assert.equal(mod.require('pi'), Math.PI);
   assert.equal(mod.require('json'), JSON);
+  callback();
+}
+
+function test_alias(mod, callback){
+  assert.ok(mod.require('dependency-alias').f);
+  assert.ok(mod.require('sibling-alias').n);
   callback();
 }
 

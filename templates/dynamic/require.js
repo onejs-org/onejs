@@ -56,6 +56,8 @@ function newRequire(callingModule){
       module = findModule(callingModule, uri);
     } else if ( ties && ties.hasOwnProperty( uri ) ) {
       return ties[uri];
+    } else if ( aliases && aliases.hasOwnProperty( uri ) ) {
+      return require(aliases[uri]);
     } else {
       pkg = pkgmap[uri];
 

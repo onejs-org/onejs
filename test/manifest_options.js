@@ -25,6 +25,11 @@ exports.testTies = function(sai, done){
   done();
 };
 
+exports.testAlias = function(sai, done){
+  assert.ok(sai.require('monouchi-alias').monouchi);
+  done();
+};
+
 exports.testSplitting = function(sai, done){
   assert.ok(require('fs').existsSync('tmp/tsume.js'));
   done();
