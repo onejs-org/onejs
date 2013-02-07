@@ -118,15 +118,15 @@ Specified dependencies (including their subdependencies) can be splitted to diff
     "name": "hello-world",
     "version": "1.0.0",
     "dependencies": {
-        "hello": "*",
-        "world": "*"
+        "foo": "*",
+        "bar": "*"
     },
     "web": {
         "save": {
             "hello-world": "hello-world.js",
-            "world": {
-                "to": "world.js",
-                "url: "/js/world.js"
+            "bar": {
+                "to": "bar.js",
+                "url: "/js/bar.js"
             }
         }
     }
@@ -139,10 +139,10 @@ OneJS will be outputting an async require implementation to let you load splitte
 // hello-world.js
 var hello = require('hello');
     
-require.async('world', function(world)){
+require.async('bar', function(bar)){ // loads "/js/bar.js"
    console.log('dependencies are loaded!');     
-   console.log(world);
-   // => [object world]
+   console.log(bar);
+   // => [object bar]
 });
 ```
 
