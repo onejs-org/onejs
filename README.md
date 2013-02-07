@@ -18,7 +18,7 @@ Version: v2.0
 * [Install](#install)
 * [First Steps](#first-steps)
 * [Advanced Usage](#advanced-usage)
-    * [Saving Multiple Files](#multiple)
+    * [Saving Multiple Files & Async Require](#multiple)
     * [Watching File Changes](#watching)
     * [Package Aliases](#alias)
     * [Accessing Global Browser Variables](#global-vars)
@@ -109,7 +109,7 @@ one('./package.json')
 ## Advanced Usage
 
 <a name="multiple"></a>
-### Saving Multiple Files
+### Saving Multiple Files & Async Require
 
 Specified dependencies (including their subdependencies) can be splitted to different files via `package.json` manifest.
 
