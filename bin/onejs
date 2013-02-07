@@ -78,7 +78,7 @@ function build(){
 
   exclude && ( options.exclude = exclude.split(',').filter(function(el){ return el && el.length; }) );
 
-  one(manifest, options, function(error){
+  one.main(manifest, options, function(error){
     if(error) throw error;
 
     process.exit(0);
