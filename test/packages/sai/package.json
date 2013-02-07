@@ -12,7 +12,7 @@
       "sai": "../../../tmp/sai.js",
       "tsume": {
         "to": "../../../tmp/tsume.js",
-        "url": "http://static.kit.ty/js/packages/tsume.js"
+        "url": "tmp/tsume.js"
       }
     },
     "tie": {

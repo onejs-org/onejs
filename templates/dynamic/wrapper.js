@@ -3,7 +3,7 @@ var {{ name }} = (function(){
   var pkgmap        = {},
       global        = {},
       nativeRequire = typeof require != 'undefined' && require,
-      lib, ties, main;
+      lib, ties, main, async;
 
   function exports(){ return main(); };
 
@@ -24,6 +24,14 @@ var {{ name }} = (function(){
   {{#aliases}}
   aliases          = {{{ aliases }}};
   {{/aliases}}
+
+  {{#async}}
+  async            = {{{ async }}};
+
+  exports.require.async = function(){
+    return pkgmap.main.index.require.async.apply(null, arguments);
+  };
+  {{/async}}
 
   return exports;
 

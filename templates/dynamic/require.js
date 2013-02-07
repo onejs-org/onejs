@@ -49,7 +49,7 @@ function findModule(workingModule, uri){
 }
 
 function newRequire(callingModule){
-  return function require(uri){
+  function require(uri){
     var module, pkg;
 
     if(/^\./.test(uri)){
@@ -83,4 +83,30 @@ function newRequire(callingModule){
     module.parent = callingModule;
     return module.call();
   };
+
+  {{#hasAsync}}
+  require.async = function(uri, callback){
+    if(pkgmap[uri]){
+      callback(pkgmap[uri]);
+      return;
+    }
+
+    var head   = document.getElementsByTagName('head')[0],
+        script = document.createElement('script');
+
+    script.type= 'text/javascript';
+    script.onreadystatechange = function () {
+      if (this.readyState == 'complete') {
+        callback(require(uri));
+      }
+    };
+    script.onload = function(){
+      callback(require(uri));
+    };
+    script.src = async[uri];
+    head.appendChild(script);
+  };
+  {{/hasAsync}}
+
+  return require;
 }
