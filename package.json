@@ -1,6 +1,6 @@
 {
   "name":"one",
-  "version":"1.8.0",
+  "version":"2.0.0",
   "description":"Transform NodeJS packages into single stand-alone script files.",
   "author":"Azer Koculu <azer@kodfabrik.com>",
   "keywords":["build","commonjs","browser"],
@@ -10,7 +10,6 @@
     "onejs":"./bin/onejs"
   },
   "dependencies":{
-    "boxcars":"0.x",
     "functools":"1.x",
     "optimist":"0.x",
     "combiner":"1.2.x",
