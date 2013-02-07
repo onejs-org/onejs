@@ -132,7 +132,7 @@ Specified dependencies (including their subdependencies) can be splitted to diff
 }
 ```
 
-OneJS also lets you 'require' a splitted file asynchronously.
+OneJS will be outputting an async require implementation to let you load splitted packages;
 
 ```js
 // hello-world.js
