@@ -18,6 +18,7 @@ Version: v2.0
 * [Install](#install)
 * [First Steps](#first-steps)
 * [Advanced Usage](#advanced-usage)
+    * [Saving Multiple Files](#multiple)
     * [Package Aliases](#alias)
     * [Accessing Global Browser Variables](#global-vars)
     * [Excluding Packages](#exclude)
