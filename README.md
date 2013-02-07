@@ -1,86 +1,276 @@
 OneJS is a command-line utility for converting CommonJS packages to single, stand-alone JavaScript
 files that can be run on web browsers.
 
+Version: v2.0
+
 # MOTIVATION
 
 * **Reusability** OneJS lets developers code JavaScript for one platform and run everywhere, without requiring any additional effort.
-* **Elegant Modularization** Modules and packages specs of CommonJS are what web apps exactly needs: a very well designed way to structure JavaScript code.
+* **Elegant Modularization** Modules and packages specs of CommonJS are what web apps exactly needs: a well designed way to structure your source code.
 * **NPM** OneJS moves the revolution of NPM one step forward and makes it available for client-side projects!
 * **No Spaghetti Code** No awkward headers, no framework-specific definitions.
 * **Reliable code generation** OneJS doesn't change your source code. It generates a container that emulates a simple NodeJS environment.
 * **Unobtrusive Code** OneJS puts all the content into an isolated JS object.
 
-![](http://oi41.tinypic.com/aw2us3.jpg)
+![](https://dl.dropbox.com/s/e1ob30ypqfjukvl/alma_1.jpg)
 
-### Examples
-* See the example project included in this repository
-* MultiplayerChess.com ([Source Code](https://github.com/azer/multiplayerchess.com/tree/master/frontend) - [Output](http://multiplayerchess.com/mpc.js) )
-* [ExpressJS built by OneJS](https://gist.github.com/2415048)
-* [OneJS built by OneJS](https://gist.github.com/2998719)
+# DOCUMENTATION
+* [Install](#install)
+* [First Steps](#first-steps)
+* [Advanced Usage](#advanced-usage)
+    * [Package Aliases](#alias)
+    * [Accessing Global Browser Variables](#global-vars)
+    * [Excluding Packages](#exclude)
+    * [Filtering Modules](#filter)
+* [API Reference](#api)
+    * [Command-Line API](#cli)
+    * [NodeJS API](#nodejs)
+    * [package.json](#packagejson)
+* [Examples](#examples)
+* [Troubleshooting](#troubleshooting)
+* [Testing](#testing)
 
-# INSTALL
+<a name="install"></a>
+## Install
 ```bash
-$ npm install one
+$ npm install -g one
 ```
 
+<a name="first-steps"></a>
 # First Steps
 
-OneJS walks the modules and dependencies defined by package.json files. To create your bundle, just go a project directory and type `onejs build` command:
+The quickest way of giving OneJS a try is to run "onejs build package.json" command in a project folder. It'll walk through all the directories, find
+JavaScript files in the "lib" folder (if exists, and by considering .npmignore), and produce an output that can be run by any web browser and NodeJS, as well.
 
-```
-$ onejs build package.json bundle.js
-```
+Bundle files produced by OneJS consist of a CommonJS implementation and the throughout package tree wrapped by [OneJS' templates](https://github.com/azer/onejs/tree/master/templates/dynamic).
+And the produced output will be unobtrusive. Which means, your project will not conflict with any other JavaScript on the page that is embedded.
 
-**Experimenting the Bundle Script**
-
-The output OneJS generates can be used by NodeJS, too. It's the easiest way of making sure if the output works or not.
-
-```
-> var exampleProject = require('./bundle');
-> exampleProject.main() // calls main module, returns its exports
-> exampleProject.require('./b') // each package object has a require method available for external calls
-```
-
-In the case what you need is to try it in web browsers, onejs has a "server" option that'll publish the source code at `localhost:1338` let you debug the output with Firebug Lite easily;
-
-```
-$ ../bin/onejs server example-project/package.json
-```
-
-**Requiring Global Variables**
-
-OneJS doesn't change the way we access global variables. However, we may want to use require statements to access global variables (such as document, jQuery etc..) for purposes like dependency injection or documentation. Following example demonstrates the usage of `--tie` option that lets us require global variables;
-
-```javascript
-var $   = require('jquery'),
-    dom = require('dom'),
-    pi  = require('pi');
-
-$(dom).ready(function(){
-  console.log( pi == Math.PI ); // true
-});
-```
+Once you produce the output, as you expect, it needs to be included by an HTML page, like the below example;
 
 ```bash
-$ onejs build package.json --tie pi=Math.PI,jquery=jQuery,dom=document
+$ one build hello-world/package.json output.js
+$ cat > index.html
+<html>
+    <script src="output.js"></script>
+    <script>helloWorld();</script>
+</html>
 ```
 
-**Excluding Specific Dependencies**
+You may notice a function named `helloWorld` was called. That's what starts running your program by requiring the `main` module of the project.
+Besides of that `helloWorld` refers to the main module, it also exports some utilities that can be useful. See following for an example;
 
-There are some cases we prefer to not have some dependency packages in the build. The `--exclude` option leads OneJS ignore the specified packages;
+```js
+> helloWorld.require('./module');
+[object ./module.js]
+> helloWorld.require('dependency');
+[object node_modules/dependency]
+```
+
+In addition to command-line API, there are two more ways to configure build options. You can have the configuration in a package.json manfest;
+
+```json
+{
+    "name": "hello-world",
+    "version": "1.0.0",
+    "directories": {
+        "lib": "lib"
+    },
+    "web": {
+        "save": "bundle.js",
+        "alias": {
+            "crypto": "crypto-browserify"
+        },
+        "tie": {
+            "jquery": "window.jQuery"
+        }
+    }
+}
+```
+
+Or, you can write your own build script using OneJS' [chaining API](https://github.com/azer/onejs/blob/master/lib/chaining.js):
+
+```js
+// build.js
+var one = require('../../../lib');
+
+one('./package.json')
+    .alias('crypto', 'crypto-browserify')
+    .tie('pi', 'Math.PI')
+    .tie('json', 'JSON')
+    .exclude('underscore')
+    .filter(/^build\.js$/)
+    .filter(/^bundle\.js$/)
+    .save('bundle.js');
+```
+
+<a name="advanced-usage"></a>
+## Advanced Usage
+
+<a name="multiple"></a>
+### Saving Multiple Files
+
+Specified dependencies (including their subdependencies) can be splitted to different files via `package.json` manifest.
+
+```json
+{
+    "name": "hello-world",
+    "version": "1.0.0",
+    "dependencies": {
+        "hello": "*",
+        "world": "*"
+    },
+    "web": {
+        "save": {
+            "hello-world": "hello-world.js",
+            "world": {
+                "to": "world.js",
+                "url: "/js/world.js"
+            }
+        }
+    }
+}
+```
+
+OneJS also lets you 'require' a splitted file asynchronously.
+
+```js
+// hello-world.js
+var hello = require('hello'),
+    world = require.async('world', function(error, world){
+        console.log('dependencies are loaded!');    
+    });
+```
+
+<a name="alias"></a>
+### Package Aliases
+
+Registers a new name for specified package. It can be configured via command-line, package.json and NodeJS APIs. 
 
 ```bash
-$ onejs build package.json --exclude underscore,request
+$ one build package.json output.js --alias request:superagent,crypto:crypto-browserify
 ```
 
-If the case is to remove a duplication from the build, it would be a good idea to combine `--tie` and `--exclude` together;
+package.json
+```json
+{
+    "name": "hello-world",
+    "web": {
+        "alias": {
+            "crypto": "crypto-browserify"
+        }
+    }
+}
+```
+
+NodeJS
+```js
+one('./package.json')
+    .alias('crypto', 'crypto-browserify')
+    .save('foo.js');
+```
+
+<a name="global-vars"></a>
+### Accessing Global Browser Variables
+
+OneJS doesn't stop you from accessing globals. However, you may want to use `require` for accessing some global variables, 
+such as jQuery, for some purposes like keeping your source-code self documented. 
+
+OneJS may tie some package names to global variables if demanded. And it can be configured via command-line, package.json and NodeJS APIs.
 
 ```bash
-$ onejs build package.json --exclude underscore --tie underscore=window._
+$ one build package.json output.js --tie jquery:jQuery,google:goog
 ```
 
-## Command-Line API
+package.json
+```json
+{
+    "name": "hello-world",
+    "web": {
+        "tie": {
+            "jquery": "jQuery",
+            "google": "goog"
+        }
+    }
+}
 ```
+
+NodeJS
+```js
+one('./package.json')
+    .tie('jquery', 'jQuery')
+    .tie('google', 'goog')
+    .save('foo.js');
+```
+
+<a name="exclude"></a>
+### Excluding Packages
+
+Excludes specified packages from your bundle.
+
+```bash
+$ one build package.json output.js --excude underscore
+```
+
+package.json
+```json
+{
+    "name": "hello-world",
+    "web": {
+        "exclude": ["underscore"]
+    }
+}
+```
+
+NodeJS
+```js
+one('./package.json')
+    .exclude('underscore')
+    .save('foo.js');
+```
+
+<a name="filter"></a>
+### Filtering Modules/Files
+
+OneJS reads .npmignore to ignore anything not wanted to have in the bundle. In addition to .npmignore, you may also
+define your own Regex filters to ignore files. This config is only provided for only NodeJS scripts.
+
+```js
+one('./package.json')
+    .filter(/^build\.js$/)
+    .filter(/^bundle\.js$/)
+    .save('bundle.js');
+```
+
+<a name="api"></a>
+## API Reference
+OneJS lets you pick any of the following ways to configure your build. 
+
+<a name="packagejson"></a>
+### package.json
+
+```json
+{
+    "name": "hello-world",
+    "version": "1.0.0",
+    "directories": {
+        "lib": "lib"
+    },
+    "web": {
+        "save": "bundle.js",
+        "alias": {
+            "crypto": "crypto-browserify"
+        },
+        "tie": {
+            "jquery": "window.jQuery"
+        }
+    }
+}
+```
+
+<a name="cli"></a>
+### Command-Line
+
+```bash
 usage: onejs [action] [manifest] [options]
 
 Transforms NodeJS packages into single, stand-alone JavaScript files that can be run at other platforms. See the documentation at http://github.com/azer/onejs for more information.
@@ -90,10 +280,11 @@ actions:
   server     <manifest> <port> <host>     Publish generated JavaScript file on web. Uses 127.0.0.1:1338 by default.
 
 options:
-  --debug                                 Disable module caching.
+  --debug                                 Enable SourceURLs.
 
-  --tie <package name>=<global object>    Create package links to specified global variables. e.g; --tie dom=window.document,jquery=jQuery
-  --exclude <package name>                Do not contain specified dependencies. e.g: --exclude underscore,request
+  --alias <alias>:<package name>          Register an alias name for given package. e.g: request:superagent,crypto:crypto-browserify
+  --tie <package name>:<global object>    Create package links to specified global variables. e.g; --tie dom:window.document,jquery:jQuery
+  --exclude <package name>                Do not contain specified dependencies. e.g: --exclude underscore,request 
   --plain                                 Builds the package within a minimalistic template for the packages with single module and no dependencies.
 
   --quiet                                 Make console output less verbose.
@@ -102,38 +293,29 @@ options:
   --help                                  Show help.
 ```
 
-## NodeJS API
-```javascript
-var one = require('one');
+<a name="nodejs"></a>
+### NodeJS
 
-var manifest = 'path/to/manifest.json',
-    target   = 'path/to/bundle.js',
-    options  = {
-      debug: true // see available options section below
-    };
+```js
+// build.js
+var one = require('../../../lib');
 
-one.build(manifest, options, function(error, bundle){
-  if(error) throw error;
-
-  one.save(target, bundle, function(error){
-    if(error) throw error;
-
-    console.log('path/to/package.json built and saved to path/to/bundle.js successfully!');
-  });
-});
+one('./package.json')
+    .alias('crypto', 'crypto-browserify')
+    .tie('pi', 'Math.PI')
+    .tie('json', 'JSON')
+    .exclude('underscore')
+    .filter(/^build\.js$/)
+    .filter(/^bundle\.js$/)
+    .save('bundle.js');
 ```
 
-**Applying Filters**
 
-Filtering filenames might be a useful option for specific cases such as splitting build to different pieces. Here is an example usage;
-
-```javascript
-var one = require('one');
-
-one.modules.filters.push(function(filename){
-    return filename.substring(0, 7) != 'lib/foo';
-});
-```
+## Examples
+* See the example project included in this repository
+* MultiplayerChess.com ([Source Code](https://github.com/azer/multiplayerchess.com/tree/master/frontend) - [Output](http://multiplayerchess.com/mpc.js) )
+* [ExpressJS built by OneJS](https://gist.github.com/2415048)
+* [OneJS built by OneJS](https://gist.github.com/2998719)
 
 # Troubleshooting
 
