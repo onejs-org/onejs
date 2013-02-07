@@ -136,10 +136,13 @@ OneJS also lets you 'require' a splitted file asynchronously.
 
 ```js
 // hello-world.js
-var hello = require('hello'),
-    world = require.async('world', function(error, world){
-        console.log('dependencies are loaded!');    
-    });
+var hello = require('hello');
+    
+require.async('world', function(world)){
+   console.log('dependencies are loaded!');     
+   console.log(world);
+   // => [object world]
+});
 ```
 
 <a name="alias"></a>
