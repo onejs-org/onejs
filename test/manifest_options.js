@@ -15,7 +15,7 @@ exports.init = function init(options, callback){
 }
 
 exports.testExcluding = function(sai, done){
-  assert.deepEqual(['monouchi', 'sai', 'main', 'tsume'], Object.keys(sai.packages));
+  assert.deepEqual(['monouchi', 'sai', 'main'], Object.keys(sai.packages));
   done();
 };
 
@@ -26,6 +26,6 @@ exports.testTies = function(sai, done){
 };
 
 exports.testSplitting = function(sai, done){
-  var tsume = require('../tmp/tsume');
+  assert.ok(require('fs').existsSync('tmp/tsume.js'));
   done();
 };

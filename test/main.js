@@ -30,7 +30,7 @@ module.exports = {
   'test_id':test_id,
   'test_loadModule':test_loadModule,
   'test_objectName':test_objectName,
-  //'test_manifestOptions': kick('./manifest_options'),
+  'test_manifestOptions': kick('./manifest_options'),
   'test_moduleName':test_moduleName,
   'test_assertListContent':test_assertListContent,
   'test_targets': test_targets,
@@ -38,7 +38,8 @@ module.exports = {
   'test_build':test_build,
   'test_build_plain': test_build_plain,
 
-  'test_npmignore': test_npmignore
+  'test_npmignore': test_npmignore,
+  'test_templateTrees': test_templateTrees
 //  'test_programmatic_api': test_programmatic_api
 };
 
@@ -270,11 +271,47 @@ function test_targets(done){
       pkg3 = { manifest: { name: 'one', web: { save: { one: 'foo' } } } },
       pkg4 = { manifest: { name: 'one', web: { save: { one: { to: 'foo' }, two: { to: 'bar', 'url': 'qux' } } } } };
 
-  assert.deepEqual(one.targets(pkg1, {}, {}), {});
+  assert.equal(one.targets(pkg1, {}, {}).one.to, '[stdout]');
   assert.deepEqual(one.targets(pkg1, {}, { target: 'foo' }), { one: { to: 'foo' } });
   assert.deepEqual(one.targets(pkg2, {}, {}), { one: { to: 'foo' } });
   assert.deepEqual(one.targets(pkg3, {}, {}), { one: { to: 'foo' } });
   assert.deepEqual(one.targets(pkg4, {}, {}), { one: { to: 'foo' }, two: { to: 'bar', url: 'qux' } });
+
+  done();
+}
+
+function test_templateTrees(done){
+  var a = { name: 'a', parents: [] },
+      b = { name: 'b', parents: [a] },
+      c = { name: 'c', parents: [b, a] },
+      d = { name: 'd', parents: [b, c] },
+      e = { name: 'e', parents: [c] },
+      f = { name: 'f', parents: [d] },
+      g = { name: 'g', parents: [b] },
+      h = { name: 'h', parents: [d] },
+      i = { name: 'i', parents: [e] },
+      j = { name: 'j', parents: [i, g] },
+      o = {
+        save: {
+          a: { to: 'a.js' },
+          c: { to: 'c.js' },
+          g: { to: 'g.js' }
+        }
+      };
+
+  a.pkgdict = { a: a, b: b, c: c, d: d, e: e, f: f, g: g, h: h, i: i, j: j };
+
+  var buildTree = require('../lib/templating/build_tree'),
+      result = buildTree(a, o),
+      files = Object.keys(result);
+
+  function name(p){ return p.name; }
+
+  assert.deepEqual(files, ['a.js', 'c.js', 'g.js']);
+
+  assert.deepEqual(result['a.js'].map(name), ['a', 'b', 'd', 'f', 'h', 'j']);
+  assert.deepEqual(result['c.js'].map(name), ['c', 'e', 'i']);
+  assert.deepEqual(result['g.js'].map(name), ['g']);
 
   done();
 }
