@@ -19,6 +19,7 @@ Version: v2.0
 * [First Steps](#first-steps)
 * [Advanced Usage](#advanced-usage)
     * [Saving Multiple Files](#multiple)
+    * [Watching File Changes](#watching)
     * [Package Aliases](#alias)
     * [Accessing Global Browser Variables](#global-vars)
     * [Excluding Packages](#exclude)
@@ -143,6 +144,27 @@ require.async('world', function(world)){
    console.log(world);
    // => [object world]
 });
+```
+
+<a name="watching"></a>
+### Watching File Changes
+
+OneJS doesn't have a watching utility since a built-in one becomes useless when you have other build steps.
+
+Recommended way is to create a Makefile, and use [visionmedia/watch](https://github.com/visionmedia/watch) to
+build your project when there is a change. Following Makefile example watches files under /lib directory.
+
+```make
+SRC = $(wildcard lib/*/*.js)
+
+build: $(SRC)
+   @one build package.json bundle.js
+```
+
+Below command will be updating `bundle.js` when `lib/` has a change.
+
+```bash
+$ make watch
 ```
 
 <a name="alias"></a>
