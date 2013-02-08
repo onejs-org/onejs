@@ -34,3 +34,11 @@ exports.testSplitting = function(sai, done){
   assert.ok(require('fs').existsSync('tmp/tsume.js'));
   done();
 };
+
+exports.testName = function(sai, done){
+  var fs = require('fs');
+
+  assert.equal(fs.readFileSync('./tmp/sai.js').toString().slice(0, 9), 'var s_a_i');
+
+  done();
+}

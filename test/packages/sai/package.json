@@ -8,6 +8,7 @@
     "tsume":"*"
   },
   "web": {
+    "name": "s_a_i",
     "save": {
       "sai": "../../../tmp/sai.js",
       "tsume": {

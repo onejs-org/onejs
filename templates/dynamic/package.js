@@ -2,7 +2,6 @@
 
   return {
     'name'         : '{{ name }}',
-    'main'         : undefined,
     'mainModuleId' : '{{ main }}',
     'modules'      : [],
     'parents'      : parents
