@@ -24,7 +24,7 @@ Version: v2.0
     * [Accessing Global Browser Variables](#global-vars)
     * [Excluding Packages](#exclude)
     * [Filtering Modules](#filter)
-    * [Customizing Global Name](#name)
+    * [Customizing Global Name](#customize-name)
 * [API Reference](#api)
     * [Command-Line API](#cli)
     * [NodeJS API](#nodejs)
@@ -268,7 +268,7 @@ one('./package.json')
     .save('bundle.js');
 ```
 
-<a name="name"></a>
+<a name="customize-name"></a>
 ### Customizing Global Variable
 
 OneJS defines the global variable that wraps the bundle by default. For example, a project named "hello-world" lies
