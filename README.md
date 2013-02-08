@@ -152,8 +152,8 @@ require.async('bar', function(bar)){ // loads "/js/bar.js"
 
 OneJS doesn't have a watching utility since a built-in one becomes useless when you have other build steps.
 
-Recommended way is to create a Makefile, and use [visionmedia/watch](https://github.com/visionmedia/watch) to
-build your project when there is a change. Following Makefile example watches files under /lib directory.
+Recommended way is to create a Makefile, and use the good tools such as [visionmedia/watch](https://github.com/visionmedia/watch)  to
+, [isaacs/node-supervisor](https://github.com/isaacs/node-supervisor) build your project when there is a change. Following Makefile example watches files under /lib directory.
 
 ```make
 SRC = $(wildcard lib/*/*.js)
@@ -165,7 +165,7 @@ build: $(SRC)
 Below command will be updating `bundle.js` when `lib/` has a change.
 
 ```bash
-$ make watch
+$ watch make
 ```
 
 <a name="alias"></a>
