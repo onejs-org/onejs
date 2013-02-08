@@ -137,8 +137,8 @@ Specified dependencies (including their subdependencies) can be splitted to diff
 OneJS will be outputting an async require implementation to let you load splitted packages;
 
 ```js
-// hello-world.js
-var hello = require('hello');
+// hello-world/index.js
+var foo = require('foo');
     
 require.async('bar', function(bar)){ // loads "/js/bar.js"
    console.log('dependencies are loaded!');     
