@@ -24,6 +24,7 @@ Version: v2.0
     * [Accessing Global Browser Variables](#global-vars)
     * [Excluding Packages](#exclude)
     * [Filtering Modules](#filter)
+    * [Customizing Global Name](#name)
 * [API Reference](#api)
     * [Command-Line API](#cli)
     * [NodeJS API](#nodejs)
@@ -267,6 +268,23 @@ one('./package.json')
     .save('bundle.js');
 ```
 
+<a name="name"></a>
+### Customizing Global Variable
+
+OneJS defines the global variable that wraps the bundle by default. For example, a project named "hello-world" lies
+under "helloWorld" object on the browsers.
+
+To customize it, define "name" field on your package.json;
+
+```json
+{
+    "name": "hello-world",
+    "web": {
+        "name": "HelloWorld"
+    }
+}
+```
+
 <a name="api"></a>
 ## API Reference
 OneJS lets you pick any of the following ways to configure your build. 
@@ -282,6 +300,7 @@ OneJS lets you pick any of the following ways to configure your build.
         "lib": "lib"
     },
     "web": {
+        "name":"HelloWorld",
         "save": "bundle.js",
         "alias": {
             "crypto": "crypto-browserify"
