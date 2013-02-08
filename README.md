@@ -1,7 +1,7 @@
 OneJS is a command-line utility for converting CommonJS packages to single, stand-alone JavaScript
 files that can be run on web browsers.
 
-Version: v2.0
+**Current Version:** 2.0.2
 
 # MOTIVATION
 
