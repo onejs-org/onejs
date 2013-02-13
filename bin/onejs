@@ -110,7 +110,7 @@ function version(){
   process.exit(0);
 }
 
-var action = argv._[0];
+var action = argv._[0] || 'build';
 
 verbosity();
 
