@@ -12,6 +12,8 @@ files that can be run on web browsers.
 * **Reliable code generation** OneJS doesn't change your source code. It generates a container that emulates a simple NodeJS environment.
 * **Unobtrusive Code** OneJS puts all the content into an isolated JS object.
 
+![](https://dl.dropbox.com/s/e1ob30ypqfjukvl/alma_1.jpg)
+
 # DOCUMENTATION
 * [Install](#install)
 * [First Steps](#first-steps)
