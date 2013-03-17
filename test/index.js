@@ -5,7 +5,6 @@ var child_process     = require('child_process'),
 
     assert            = require('assert'),
     fs                = require('fs'),
-    kick              = require('highkick'),
 
     common            = require('./common'),
     moduleFilenames   = common.moduleFilenames,
@@ -40,7 +39,6 @@ module.exports = {
 
   'test_npmignore': test_npmignore,
   'test_templateTrees': test_templateTrees
-//  'test_programmatic_api': test_programmatic_api
 };
 
 function clean(){

@@ -21,6 +21,6 @@
     "highkick":"1.x"
   },
   "scripts":{
-    "test":"./node_modules/highkick/bin/highkick test/main.js"
+    "test":"highkick test/index"
   }
 }

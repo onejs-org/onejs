@@ -162,7 +162,7 @@ function test_parent(mod, callback){
 
 function test_tie(mod, callback){
   assert.equal(mod.require('pi'), Math.PI);
-  assert.equal(mod.require('json'), JSON);
+  assert.deepEqual(mod.require('json'), JSON);
   callback();
 }
 
@@ -176,4 +176,3 @@ function testMustacheSyntax(mod, callback){
   assert.equal( mod.require('./a').mustacheSyntax, '{{ foobar }}');
   callback();
 }
-
