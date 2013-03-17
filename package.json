@@ -1,26 +1,32 @@
 {
-  "name":"one",
-  "version":"2.0.4",
-  "description":"Transform NodeJS packages into single stand-alone script files.",
-  "author":"Azer Koculu <azer@kodfabrik.com>",
-  "keywords":["build","commonjs","browser"],
-  "directories":{ "lib": "./lib" },
-  "main":"./lib",
-  "bin":{
-    "onejs":"./bin/onejs"
+  "name": "one",
+  "version": "2.0.5",
+  "description": "Transform NodeJS packages into single stand-alone script files.",
+  "author": "Azer Koculu <azer@kodfabrik.com>",
+  "keywords": [
+    "build",
+    "commonjs",
+    "browser"
+  ],
+  "directories": {
+    "lib": "./lib"
   },
-  "dependencies":{
-    "functools":"1.x",
-    "optimist":"0.x",
-    "combiner":"1.2.x",
-    "hogan.js":"2.x",
-    "log4js":"0.4.1",
-    "boxcars":"0.x"
+  "main": "./lib",
+  "bin": {
+    "onejs": "./bin/onejs"
   },
-  "devDependencies":{
-    "highkick":"1.x"
+  "dependencies": {
+    "functools": "1.x",
+    "optimist": "0.x",
+    "combiner": "1.2.x",
+    "hogan.js": "2.x",
+    "log4js": "0.4.1",
+    "boxcars": "0.x"
   },
-  "scripts":{
-    "test":"highkick test/index"
+  "devDependencies": {
+    "highkick": "1.x"
+  },
+  "scripts": {
+    "test": "highkick test/index"
   }
 }
