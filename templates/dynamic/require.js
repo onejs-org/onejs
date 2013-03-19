@@ -29,7 +29,7 @@ function dirname(path) {
 };
 
 function findModule(workingModule, uri){
-  var moduleId      = join(dirname(workingModule.id), uri).replace(/\.js$/, ''),
+  var moduleId      = join(dirname(workingModule.id), /\.\/$/.test(uri) ? (uri + 'index') : uri ).replace(/\.js$/, ''),
       moduleIndexId = join(moduleId, 'index'),
       pkg           = workingModule.pkg,
       module;
@@ -39,6 +39,7 @@ function findModule(workingModule, uri){
 
   while(i-->0){
     id = pkg.modules[i].id;
+
     if(id==moduleId || id == moduleIndexId){
       module = pkg.modules[i];
       break;
