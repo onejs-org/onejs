@@ -3,11 +3,6 @@ files that can be run on web browsers.
 
 **Current Version:** 2.0.8
 
-#### Update
-
-Since [node-browserify](http://github.com/substack/node-browserify) has a lot of open source power behind it and is
-really good, you would want to try Browserify first. 
-
 # MOTIVATION
 
 * **Reusability** OneJS lets developers code JavaScript for one platform and run everywhere, without requiring any additional effort.
