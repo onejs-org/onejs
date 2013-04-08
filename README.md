@@ -1,7 +1,12 @@
 OneJS is a command-line utility for converting CommonJS packages to single, stand-alone JavaScript
 files that can be run on web browsers.
 
-**Current Version:** 2.0.2
+**Current Version:** 2.0.8
+
+#### Update
+
+Since [node-browserify](http://github.com/substack/node-browserify) has a lot of open source power behind it and is
+really good, you would want to try Browserify first. 
 
 # MOTIVATION
 
@@ -12,7 +17,7 @@ files that can be run on web browsers.
 * **Reliable code generation** OneJS doesn't change your source code. It generates a container that emulates a simple NodeJS environment.
 * **Unobtrusive Code** OneJS puts all the content into an isolated JS object.
 
-![](https://dl.dropbox.com/s/e1ob30ypqfjukvl/alma_1.jpg)
+![](https://dl.dropbox.com/s/r29fc29iip3mj8u/onejs.jpg)
 
 # DOCUMENTATION
 * [Install](#install)
