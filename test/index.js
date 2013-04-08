@@ -5,6 +5,7 @@ var child_process     = require('child_process'),
 
     assert            = require('assert'),
     fs                = require('fs'),
+    kick              = require('highkick'),
 
     common            = require('./common'),
     moduleFilenames   = common.moduleFilenames,
