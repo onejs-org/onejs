@@ -28,6 +28,7 @@ var HELP = ['usage: onejs [action] [manifest] [options]'
           , 'options:'
           , '  --debug                                 Enable SourceURLs.'
           , ''
+          , '  --dep <module>:[<version>]              Register additional dependecies. e.g: event:*,util:*'
           , '  --alias <alias>:<package name>          Register an alias name for given package. e.g: request:superagent,crypto:crypto-browserify'
           , '  --tie <package name>:<global object>    Create package links to specified global variables. e.g; --tie dom:window.document,jquery:jQuery'
           , '  --exclude <package name>                Do not contain specified dependencies. e.g: --exclude underscore,request '
@@ -44,6 +45,7 @@ function build(){
       target   = argv._[2],
       tie      = argv.tie,
       alias    = argv.alias,
+      dep      = argv.dep,
       exclude  = argv.exclude,
       options  = {
         target  : argv._[2],
@@ -51,7 +53,8 @@ function build(){
         exclude : undefined,
         plain   : argv.plain,
         tie     : undefined,
-        alias   : undefined
+        alias   : undefined,
+        dep     : undefined
       };
 
   if(tie){
@@ -73,6 +76,15 @@ function build(){
       .map(function(el){
         el = el.split(/=|:/);
         return { 'name': el[0], 'orig': el[1] };
+      });
+  }
+  if(dep){
+    dep.split(',')
+      .map(function(el){
+        el = el.split(/=|:/);
+        if (!options.addDeps)
+          options.addDeps = {}
+        options.addDeps[el[0]] = el[1] || '*';
       });
   }
 
