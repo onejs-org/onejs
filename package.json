@@ -20,7 +20,7 @@
     "optimist": "0.x",
     "combiner": "1.2.x",
     "hogan.js": "2.x",
-    "log4js": "0.4.1",
+    "log4js": "0.6.x",
     "boxcars": "0.x"
   },
   "devDependencies": {
