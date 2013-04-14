@@ -1,6 +1,6 @@
 {
   "name": "one",
-  "version": "2.0.10",
+  "version": "2.0.11",
   "description": "Transform NodeJS packages into single stand-alone script files.",
   "author": "Azer Koculu <azer@kodfabrik.com>",
   "keywords": [
