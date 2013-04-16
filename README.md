@@ -392,6 +392,7 @@ one('./package.json')
 ## Examples
 // Following examples are out of date. Will be updated soon.
 
+* [Fox](https://github.com/azer/fox/blob/master/lib/browser.js#L19)
 * See the example project included in this repository
 * MultiplayerChess.com ([Source Code](https://github.com/azer/multiplayerchess.com/tree/master/frontend) - [Output](http://multiplayerchess.com/mpc.js) )
 * [ExpressJS built by OneJS](https://gist.github.com/2415048)
