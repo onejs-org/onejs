@@ -4,9 +4,9 @@
 html,
 body {
   background: #fff;
-  margin: 0;
+  margin: 100px auto;
   padding: 0;
-  width: 100%;
+  width: 500px;
   height: 100%;
 }
 body {
