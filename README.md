@@ -3,9 +3,6 @@ files that can be run on web browsers.
 
 **Current Version:** 2.0.11
 
-[![Build Status](https://travis-ci.org/azer/onejs.png)](https://travis-ci.org/azer/onejs)
-
-
 # MOTIVATION
 
 * **Reusability** OneJS lets developers code JavaScript for one platform and run everywhere, without requiring any additional effort.
