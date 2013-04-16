@@ -270,6 +270,31 @@ one('./package.json')
     .save('bundle.js');
 ```
 
+<a name="add-deps"></a>
+### Additional Dependencies
+
+You may add some dependencies not defined in your package.json;
+
+```js
+one('./package.json')
+   .dependency('request', '2.x')
+   .dependency('async', '2.x')
+   .save(function(error, bundle){
+      
+      bundle
+      // => the source code
+      
+   })
+```
+<a name="dev-deps"></a>
+### Enabling Development Dependencies
+
+```js
+one('./package.json')
+   .devDependencies()
+   .save('bundle.js')
+```
+
 <a name="customize-name"></a>
 ### Customizing Global Variable
 
@@ -351,10 +376,18 @@ one('./package.json')
     .alias('crypto', 'crypto-browserify')
     .tie('pi', 'Math.PI')
     .tie('json', 'JSON')
+    
+    .include('optional-module.js')
+    .dependency('optional-dependency', '2.x')
     .exclude('underscore')
+    
     .filter(/^build\.js$/)
     .filter(/^bundle\.js$/)
-    .save('bundle.js');
+    
+    .devDependencies()
+   
+    .name('helloKitty')
+    .save('bundle.js'); // or .save(function(error, bundle){  })
 ```
 
 
