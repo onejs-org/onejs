@@ -3,7 +3,8 @@ files that can be run on web browsers.
 
 **Current Version:** 2.0.11
 
-![](https://travis-ci.org/azer/onejs.png)
+[![Build Status](https://travis-ci.org/azer/onejs.png)](https://travis-ci.org/azer/onejs)
+
 
 # MOTIVATION
 
