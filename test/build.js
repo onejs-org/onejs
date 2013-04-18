@@ -19,7 +19,6 @@ module.exports = {
   'testMustacheSyntax': testMustacheSyntax
 };
 
-
 function moduleIds(modules){
   return modules.map(function(m){
     return m.id;
@@ -38,7 +37,7 @@ function init(options, callback){
 }
 
 function test_useNativeRequire(mod, callback){
-  assert.ok( mod.require('combiner').flatten );
+  assert.ok( mod.require('glob') );
   callback();
 }
 
