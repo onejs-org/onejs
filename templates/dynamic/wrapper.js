@@ -52,3 +52,7 @@ if(typeof module != 'undefined' && module.exports ){
     {{ name }}();
   }
 }
+
+if(typeof window != 'undefined' && typeof require == 'undefined'){
+  window.require = {{name}}.require;
+}

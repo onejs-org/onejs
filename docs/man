@@ -1,0 +1,23 @@
+
+    USAGE
+
+        onejs [manifest] [target] [options]
+
+    OPTIONS
+
+        -d      --debug       Enable SourceUrls
+        -o      --target      Target file to save the build.
+
+        -r      --require     Add given optional package to the bundle. e.g -a event:*,util:*
+        -a      --alias       Register an alias name for a package. e.g crypto:crypto-browserify
+        -t      --tie         Register a global variable as package. e.g --tie math:window.Math
+        -e      --exclude     Exclude specified packages from the bundle.
+
+        -v      --version     Show version and exit.
+        -h      --help        Show this help and exist.
+
+    DEBUGGING
+
+        Enable debugging by setting the environment variable "DEBUG" as following
+
+        DEBUG=one:* onejs

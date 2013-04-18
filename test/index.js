@@ -11,8 +11,6 @@ var child_process     = require('child_process'),
     moduleFilenames   = common.moduleFilenames,
     assertListContent = common.assertListContent;
 
-one.quiet(true);
-
 var test_build     = kick('./build'),
     test_package   = kick('./package'),
     test_manifest  = kick('./manifest'),

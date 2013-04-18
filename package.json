@@ -1,6 +1,6 @@
 {
   "name": "one",
-  "version": "2.0.11",
+  "version": "2.5.0",
   "description": "Transform NodeJS packages into single stand-alone script files.",
   "author": "Azer Koculu <azer@kodfabrik.com>",
   "keywords": [
@@ -21,7 +21,8 @@
     "combiner": "1.2.x",
     "hogan.js": "2.x",
     "log4js": "0.6.x",
-    "boxcars": "0.x"
+    "boxcars": "0.x",
+    "debug": "*"
   },
   "devDependencies": {
     "highkick": "1.x"

@@ -1,44 +1,93 @@
 #!/usr/bin/env node
 
-var one = require('../lib'),
-    puts = require('util').puts,
-    buildOptions = {};
+var opt     = require('optimist'),
+    debug   = require('../lib/debug')('bin'),
+    help    = require('../lib/help'),
+    version = require('../lib/version');
 
-var REV = '1.1.0';
+var argv = opt
+      .options('debug', { alias: 'd' })
+      .options('target', { alias: 'o' })
+      .options('require', { alias: 'r' })
+      .options('alias', { alias: 'a' })
+      .options('tie', { alias: 't' })
+      .options('exclude', { alias: 'e' })
+      .options('version', { alias: 'v' })
+      .options('help', { alias: 'h' })
+      .argv;
 
-var opt = require('optimist'),
-    argv = opt
-    .options('debug', {})
-    .options('tie', {})
-    .options('quiet', {})
-    .options('verbose', {})
-    .options('version', {})
-    .options('plain', {})
-    .options('help', {})
-    .argv;
+if(argv.help) help();
+if(argv.version) version();
+if(argv._[0] == 'build') argv._.splice(0, 1);
 
-var HELP = ['usage: onejs [action] [manifest] [options]'
-          , ''
-          , 'Transforms NodeJS packages into single, stand-alone JavaScript files that can be run at other platforms. See the documentation at http://github.com/azer/onejs for more information.'
-          , ''
-          , 'actions:'
-          , '  build      <manifest> <target>          Generate a stand-alone JavaScript file from specified package. Write output to <target> if given any.'
-          , '  server     <manifest> <port> <host>     Publish generated JavaScript file on web. Uses 127.0.0.1:1338 by default.'
-          , ''
-          , 'options:'
-          , '  --debug                                 Enable SourceURLs.'
-          , ''
-          , '  --dep <module>:[<version>]              Register additional dependecies. e.g: event:*,util:*'
-          , '  --alias <alias>:<package name>          Register an alias name for given package. e.g: request:superagent,crypto:crypto-browserify'
-          , '  --tie <package name>:<global object>    Create package links to specified global variables. e.g; --tie dom:window.document,jquery:jQuery'
-          , '  --exclude <package name>                Do not contain specified dependencies. e.g: --exclude underscore,request '
-          , '  --plain                                 Builds the package within a minimalistic template for the packages with single module and no dependencies.'
-          , ''
-          , '  --quiet                                 Make console output less verbose.'
-          , '  --verbose                               Tell what\'s going on by being verbose.'
-          , '  --version                               Show version and exit.'
-          , '  --help                                  Show help.'
-          , ''].join('\n');
+var manifest, target = argv.target;
+
+if( argv._.length == 1){
+
+  if( argv._[0].indexOf('.json') > -1 )
+    manifest = argv._[0];
+  else if(!target)
+    target = argv._[0];
+
+} else if( argv._.length >= 2 ) {
+
+  manifest = argv._[0];
+  target || (target = argv._[1]);
+
+}
+
+manifest || ( manifest = './package.json' );
+
+debug('Manifest: %s', manifest);
+debug('Target: %s', target);
+
+var bundle = require('../lib/chaining')(manifest);
+
+argv.debug && bundle.debug();
+optionalDeps();
+alias();
+tie();
+
+target ? bundle.save(target) : bundle.save();
+
+function optionalDeps(){
+  if(!argv.require) return;
+
+  argv.require.split(',')
+    .map(function(el){
+      el = el.split(/=|:/);
+      bundle.dependency(el[0], el[1] || '*');
+    });
+}
+
+function alias(){
+  if(!argv.alias) return;
+
+  argv.alias.split(',')
+    .filter(function(el){
+      return el && ( el.indexOf('=') > -1 || el.indexOf(':') > -1);
+    })
+    .map(function(el){
+      el = el.split(/=|:/);
+      bundle.alias(el[0], el[1]);
+    });
+}
+
+function tie(){
+  if(!argv.tie) return;
+
+  argv.tie.split(',')
+    .filter(function(el){
+      return el && ( el.indexOf('=') > -1 || el.indexOf(':') > -1);
+    })
+    .map(function(el){
+      el = el.split(/=|:/);
+      bundle.tie(el[0], el[1]);
+    });
+}
+
+
+/*
 
 function build(){
   var manifest = argv._[1] || 'package.json',
@@ -58,25 +107,11 @@ function build(){
       };
 
   if(tie){
-    options.tie = tie.split(',')
-      .filter(function(el){
-        return el && ( el.indexOf('=') > -1 || el.indexOf(':') > -1);
-      })
-      .map(function(el){
-        el = el.split(/=|:/);
-        return { 'module': el[0], 'to': el[1] };
-      });
+
   }
 
   if(alias){
-    options.alias = alias.split(',')
-      .filter(function(el){
-        return el && ( el.indexOf('=') > -1 || el.indexOf(':') > -1);
-      })
-      .map(function(el){
-        el = el.split(/=|:/);
-        return { 'name': el[0], 'orig': el[1] };
-      });
+
   }
   if(dep){
     dep.split(',')
@@ -97,30 +132,6 @@ function build(){
   });
 }
 
-function help(){
-  puts(HELP);
-  process.exit(0);
-}
-
-function server(){
-  var manifest = argv._[1] || 'package.json',
-      host     = argv._[3] || '127.0.0.1',
-      port     = argv._[2] || 1338,
-      debug    = argv.debug;
-
-  one.publish({ 'manifestPath':manifest, 'host':host, 'port':port, 'debug': debug });
-}
-
-function verbosity(){
-  one.verbosity('INFO');
-  argv.quiet && one.quiet(true);
-  argv.verbose && one.verbose(true);
-}
-
-function version(){
-  puts('OneJS v' + REV);
-  process.exit(0);
-}
 
 var action = argv._[0] || 'build';
 
@@ -129,10 +140,5 @@ verbosity();
 switch(action){
   case 'build': build(); break;
   case 'server': server(); break;
-  default:
-    if(argv.version){
-      version();
-    } else {
-      help();
-    }
 }
+*/
