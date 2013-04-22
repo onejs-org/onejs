@@ -16,7 +16,8 @@
     "memoize-sync": "*",
     "uniques": "0.0.0",
     "parents": "0.0.1",
-    "new-format": "0.0.1"
+    "new-format": "0.0.1",
+    "core-modules": "0.0.0"
   },
   "devDependencies": {
     "fox": "*"

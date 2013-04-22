@@ -1,6 +1,7 @@
-var newModule  = require("../lib/module"),
-    newPackage = require('../lib/package'),
-    fs         = require('fs');
+var newModule     = require("../lib/module"),
+    newPackage    = require('../lib/package'),
+    newDependency = require('../lib/dependency'),
+    fs            = require('fs');
 
 describe('newModule', function(){
 
@@ -25,26 +26,26 @@ describe('newModule', function(){
   });
 
   it('contains the list of require calls', function(){
-    expect(m.requires).to.deep.equal(['monouchi', './foo', './bar']);
+    expect(m.requires).to.deep.equal(['monouchi', './core', './foo', './bar']);
   });
 
   it('contains all relative modules in same package', function(){
-    expect(m.relatives.length).to.equal(6);
-    expect(m.relatives.toString()).to.equal('foo, bar, cor, ge, eggs, span');
-    expect(m.relatives[2].relatives.toString()).to.equal('ge, eggs, span');
+    expect(m.relatives.length).to.equal(7);
+    expect(m.relatives.toString()).to.equal('core, foo, bar, cor, ge, eggs, span');
+    expect(m.relatives[3].relatives.toString()).to.equal('ge, eggs, span');
   });
 
   it('contains all the dependencies', function(){
-    expect(m.dependencies.toString()).to.deep.equal('monouchi, yoku, moto, tsuka, tsume');
+    expect(m.dependencies.toString()).to.deep.equal('monouchi, yoku, moto, tsuka, tsume, tty, vm');
     expect(m.dependencies[0].dependencies).to.equal(m.dependencies[0].main.dependencies);
   });
 
   it('contains a map of its require calls with corressponding modules', function(){
-    expect(Object.keys(m.map)).to.deep.equal(['./foo', './bar', 'monouchi']);
+    expect(Object.keys(m.map)).to.deep.equal(['./core', './foo', './bar', 'monouchi']);
     expect(m.map.monouchi).to.equal(m.dependencies[0].main);
 
     m = newModule('test/sai/node_modules/yoku/index.js');
-    expect(Object.keys(m.map)).to.deep.equal(['./lib/yo', './lib/ku', 'monouchi', 'moto']);
+    expect(Object.keys(m.map)).to.deep.equal(['./lib', './lib/yo', './lib/ku', 'monouchi', 'moto']);
   });
 
   it('gets the counter value as id', function(){
@@ -60,29 +61,50 @@ describe('newModule', function(){
 
 describe('newPackage', function(){
 
+  var p;
+
+  beforeEach(function(){
+    p = newPackage('quux', 'test/sai/lib/quux/eggs.js');
+  });
+
+  it('creates a package object for any entry point', function(){
+    expect(p.name).to.equal('quux');
+    expect(p.main.filename).to.equal('test/sai/lib/quux/eggs.js');
+    expect(p.main.map['../span']).to.equal(p.main.relatives[0]);
+    expect(Object.keys(p.main.map).length).to.equal(1);
+    expect(p.main.relatives.length).to.equal(1);
+    expect(p.main.relatives[0].name).to.equal('span');
+    expect(p.main.relatives[0].map.monouchi.filename).to.match(/monouchi\/index\.js/);
+    expect(p.main.relatives[0].map.yoku.filename).to.match(/yoku\/index\.js/);
+  });
+
+  it('returns same package object for same names disregarding the filename', function(){
+    var copy = newPackage('quux', 'test/sai/index.js');
+    expect(copy).to.equal(p);
+  });
+
+});
+
+describe('newDependency', function(){
+
   var p, m;
 
   beforeEach(function(){
-    p = newPackage('test/sai/package.json');
+    p = newDependency('test/sai/package.json');
     m = newModule('test/sai/index.js');
   });
 
-  it('creates a new package from a manifest filename', function(){
-
+  it('creates a new package from a package path', function(){
     expect(p.name).to.equal('sai');
-    expect(p.manifest.name).to.equal('sai');
-    expect(p.manifest.main).to.equal('index.js');
-
+    expect(p.main.filename).to.equal('test/sai/index.js');
   });
 
-  it('creates a new package from a module filename', function(){
-    var copy = newPackage('test/sai/lib/quux/eggs.js');
+  it('returns same package object for any path to same package', function(){
+    var copy = newDependency('test/sai/lib/quux/eggs.js');
 
     expect(copy).to.equal(p);
     expect(copy.name).to.equal('sai');
-    expect(copy.version).to.equal('0.0.0');
-    expect(copy.manifest.name).to.equal('sai');
-    expect(copy.manifest.main).to.equal('index.js');
+    expect(copy.main.filename).to.equal('test/sai/index.js');
   });
 
   it('contains the main module', function(){
@@ -103,4 +125,5 @@ describe('render', function(){
     fs.writeFileSync('test/sai-bundle.js', 'module.exports = ' + m.render().slice(1));
     expect(require('./sai-bundle').sai).to.be.true;
   });
+
 });
