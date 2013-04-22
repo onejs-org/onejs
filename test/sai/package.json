@@ -1,0 +1,28 @@
+{
+  "name": "sai",
+  "version": "0.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "monouchi":"*",
+    "yoku":"*"
+  },
+  "web": {
+    "name": "s_a_i",
+    "save": {
+      "sai": "../../../tmp/sai.js",
+      "tsume": {
+        "to": "../../../tmp/tsume.js",
+        "url": "tmp/tsume.js"
+      }
+    },
+    "tie": {
+      "pi": "Math.PI",
+      "max": "Number.MAX_VALUE"
+    },
+    "alias": {
+      "monouchi-alias2": "monouchi-alias",
+      "monouchi-alias": "monouchi"
+    }
+  },
+  "license": "BSD"
+}

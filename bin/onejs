@@ -1,0 +1,22 @@
+#!/usr/bin/env node
+
+var opt     = require('optimist'),
+    cli     = require('../lib/cli'),
+    help    = require('../lib/help'),
+    version = require('../lib/version');
+
+var argv = opt
+      .options('debug', { alias: 'd' })
+      .options('target', { alias: 'o' })
+      .options('require', { alias: 'r' })
+      .options('alias', { alias: 'a' })
+      .options('tie', { alias: 't' })
+      .options('exclude', { alias: 'e' })
+      .options('version', { alias: 'v' })
+      .options('help', { alias: 'h' })
+      .argv;
+
+if(argv.help) help();
+if(argv.version) version();
+
+cli(argv);

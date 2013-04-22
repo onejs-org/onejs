@@ -1,0 +1,11 @@
+all 'lib/templates'
+
+target 'lib/templates', 'templates', ->
+    write 'lib/templates/wrapper.js', requirable(cat 'templates/wrapper.js')
+    write 'lib/templates/require.js', requirable(cat 'templates/require.js')
+    write 'lib/templates/module.js', requirable(cat 'templates/module.js')
+
+requirable = (str) ->
+    output = 'module.exports = "'
+    output += str.replace(/\"/g, '\\"').replace /\n/g, '\\n'
+    output += '";'

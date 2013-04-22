@@ -1,0 +1,30 @@
+{
+  "name": "one",
+  "version": "0.0.0",
+  "description": "Bundles NodeJS modules/libraries for web browsers",
+  "main": "index.js",
+  "scripts": {
+    "test": "fox"
+  },
+  "bin": {
+    "onejs": "./bin/onejs"
+  },
+  "dependencies": {
+    "debug": "*",
+    "optimist": "*",
+    "glob": "*",
+    "memoize-sync": "*",
+    "uniques": "0.0.0",
+    "parents": "0.0.1",
+    "new-format": "0.0.1"
+  },
+  "devDependencies": {
+    "fox": "*"
+  },
+  "repository": {
+    "url": "git@github.com:azer/onejs.git",
+    "type": "git"
+  },
+  "author": "Azer Koçulu <azer@kodfabrik.com>",
+  "license": "BSD"
+}
