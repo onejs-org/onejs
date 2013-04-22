@@ -1,3 +1,1 @@
-exports.eggs = true;
-
-require('../span');
+exports.eggs = require('../span').span;

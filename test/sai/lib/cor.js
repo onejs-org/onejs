@@ -1,3 +1,1 @@
-exports.cor = true;
-
-require('./ge');
+exports.cor = require('./ge').ge;

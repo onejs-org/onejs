@@ -1,2 +1,1 @@
-exports.foo = true;
-require("yoku");
+exports.foo = require("yoku").yoku;

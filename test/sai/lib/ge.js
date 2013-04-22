@@ -1,3 +1,1 @@
-exports.ge = true;
-
-require('./quux/eggs');
+exports.ge = require('./quux/eggs').eggs;

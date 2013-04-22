@@ -1,3 +1,1 @@
-exports.bar = true;
-
-require('./lib/cor');
+exports.bar = require('./lib/cor').cor;

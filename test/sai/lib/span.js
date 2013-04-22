@@ -1,4 +1,1 @@
-exports.span = true;
-
-require('monouchi');
-require('yoku');
+exports.span = require('monouchi').monouchi && require('yoku').yoku;
