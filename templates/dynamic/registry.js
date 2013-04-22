@@ -41,6 +41,11 @@ function pkg(/* [ parentId ...], wrapper */){
 
   return function(modules){
     var id;
+    // Set `main` in case the root (i.e. the module without any parent) doesn't
+    // have any sub-modules
+    if(ctx.mainModuleId === ""){
+      module(ctx, "", function(){});
+    }
     for(id in modules){
       module(ctx, id, modules[id]);
     }
