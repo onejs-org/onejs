@@ -1,9 +1,9 @@
-;(function(){
+;(function(process){
 
 require.m = { {map} };
 
-return require(require.m[0]);
+return require(require.m[{entry}]);
 
 {require}
 
-}());
+}({ env:{} }));

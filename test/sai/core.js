@@ -1,1 +1,1 @@
-module.exports.core = !!require('tty').isatty && !!require('vm').runInNewContext;
+module.exports.core = !!require('tty').isatty && !!require('vm').runInNewContext && !!require('buffer');

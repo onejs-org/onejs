@@ -13,6 +13,7 @@ describe('newModule', function(){
 
   it('creates a module object from given filename', function(){
     expect(m.name).to.equal('index');
+
     expect(m.filename).to.equal('test/sai/index.js');
     expect(m.content).to.match(/sai = /);
   });
@@ -35,14 +36,16 @@ describe('newModule', function(){
     expect(m.relatives[3].relatives.toString()).to.equal('ge, eggs, span');
   });
 
-  it('contains all the dependencies', function(){
-    expect(m.dependencies.toString()).to.deep.equal('monouchi, yoku, moto, tsuka, tsume, tty, vm');
-    expect(m.dependencies[0].dependencies).to.equal(m.dependencies[0].main.dependencies);
+  it('contains its  dependencies', function(){
+    expect(m.dependencies.length).to.equal(1);
+    expect(m.dependencies[0].name).to.equal('monouchi');
+    expect(m.dependencies[0].main.relatives[0].dependencies.length).to.equal(1);
+    expect(m.dependencies[0].main.relatives[0].dependencies[0].name).to.equal('tsume');
   });
 
   it('contains a map of its require calls with corressponding modules', function(){
     expect(Object.keys(m.map)).to.deep.equal(['./core', './foo', './bar', 'monouchi']);
-    expect(m.map.monouchi).to.equal(m.dependencies[0].main);
+    expect(m.map.monouchi).to.equal(m.dependencies[0].id);
 
     m = newModule('test/sai/node_modules/yoku/index.js');
     expect(Object.keys(m.map)).to.deep.equal(['./lib', './lib/yo', './lib/ku', 'monouchi', 'moto']);
@@ -70,12 +73,12 @@ describe('newPackage', function(){
   it('creates a package object for any entry point', function(){
     expect(p.name).to.equal('quux');
     expect(p.main.filename).to.equal('test/sai/lib/quux/eggs.js');
-    expect(p.main.map['../span']).to.equal(p.main.relatives[0]);
+    expect(p.main.map['../span']).to.equal(p.main.relatives[0].id);
     expect(Object.keys(p.main.map).length).to.equal(1);
     expect(p.main.relatives.length).to.equal(1);
     expect(p.main.relatives[0].name).to.equal('span');
-    expect(p.main.relatives[0].map.monouchi.filename).to.match(/monouchi\/index\.js/);
-    expect(p.main.relatives[0].map.yoku.filename).to.match(/yoku\/index\.js/);
+    expect(p.main.relatives[0].dependencies[0].main.filename).to.match(/monouchi\/index\.js/);
+    expect(p.main.relatives[0].dependencies[1].main.filename).to.match(/yoku\/index\.js/);
   });
 
   it('returns same package object for same names disregarding the filename', function(){
@@ -124,6 +127,27 @@ describe('render', function(){
   it('returns the rendered output of a module', function(){
     fs.writeFileSync('test/sai-bundle.js', 'module.exports = ' + m.render().slice(1));
     expect(require('./sai-bundle').sai).to.be.true;
+  });
+
+});
+
+describe('recursive requires', function(){
+
+  it('bundles modules calling eachother', function(){
+    var m = newModule('test/recursive/modules/b.js').render();
+    expect(eval(m)).to.deep.equal({ b: { a : true } });
+  });
+
+  it('bundles dependencies calling eachother', function(){
+    var m = newModule('test/recursive/packages/index.js').render();
+    expect(eval(m)).to.deep.equal({ index: { foo: { bar: true } }  });;
+  });
+
+  it('bundles core modules with recursive require calls', function(){
+
+    var m = newModule('test/recursive/core/a.js').render();
+    console.log(eval(m));
+
   });
 
 });
