@@ -14,6 +14,11 @@ one('index.js').save('bundle.js')
 
 See tests for more examples and documentation.
 
+## What's New?
+
+* Static analysis
+* New CLI & JavaScript API
+
 ## Manual
 
 ```
