@@ -1,11 +1,12 @@
-;(function(process, global){
+;(function(process){
 
+{native-require-def}
 require.m = { {map} };
 
 {require}
 
-{globalRequire}
+{global-require}
 
 return require(require.m[{entry}]);
 
-}({ env:{} }, this));
+}({ env:{} }{native-require}));
