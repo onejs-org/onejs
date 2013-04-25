@@ -30,8 +30,8 @@ describe('newModule', function(){
   });
 
   it('contains all relative modules in same package', function(){
-    expect(m.relatives.length).to.equal(8);
-    expect(m.relatives.toString()).to.equal('core, foo, bar, package, cor, ge, eggs, span');
+    expect(m.relatives.length).to.equal(9);
+    expect(m.relatives.toString()).to.equal('core, foo, bar, package, cor, ge, eggs, span, index');
     expect(m.relatives[4].relatives.toString()).to.equal('ge, eggs, span');
   });
 

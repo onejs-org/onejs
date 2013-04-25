@@ -1,1 +1,1 @@
-exports.foo = require("yoku").yoku;
+exports.foo = require('./foo/index').foo && require("yoku").yoku;
