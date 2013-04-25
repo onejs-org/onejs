@@ -17,6 +17,7 @@ See tests for more examples and documentation.
 ## What's New?
 
 * Static analysis
+* Core Builtins Like Browserify; https://github.com/azer/core-modules
 * New CLI & JavaScript API
 
 ## Manual
