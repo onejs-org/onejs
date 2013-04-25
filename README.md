@@ -14,6 +14,11 @@ one('index.js').save('bundle.js')
 
 See tests for more examples and documentation.
 
+## What's New?
+
+* Static analysis
+* New CLI & JavaScript API
+
 ## Manual
 
 ```
@@ -39,7 +44,6 @@ See tests for more examples and documentation.
 
         -g      --global      Expose a global require.
         -r      --require     Require given URI from the entry module. e.g -a .\/foo,underscore
-        -t      --tie         Register a global variable as package. e.g -t math=Math,pi=Math.PI
         -i      --ignore      Ignore given modules or packages. e.g -i lib\/foo.js,underscore
 
         -v      --version     Show version and exit.
@@ -51,5 +55,11 @@ See tests for more examples and documentation.
 
         DEBUG=one:* onejs
 ```
+
+## TODO
+
+* -t --tie
+* Async Require & Multiple Bundles
+* Components/Assets
 
 ![](https://dl.dropboxusercontent.com/s/8d7jw10kjwveqs5/npmel_16.jpg)
