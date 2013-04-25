@@ -4,7 +4,7 @@
   "description": "Bundles NodeJS modules/libraries for web browsers",
   "main": "index.js",
   "scripts": {
-    "test": "fox"
+    "test": "fox test/index.js test/options.js"
   },
   "bin": {
     "onejs": "./bin/onejs"

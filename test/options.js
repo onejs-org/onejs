@@ -46,19 +46,35 @@ describe('ignore', function(){
     require('../lib/render').renderModule.reset();
   });
 
-  it('ignores modules and packages', function(){
+  it('ignores packages', function(){
+    var ctx = {};
+    try {
+      eval(wrap(one('test/sai/index.js').ignore('yoku').global().render()));
+    } catch (err) {
+    }
+
+    ctx.require('monouchi');
+    ctx.require('tsume');
+
+    function yoku(){
+      ctx.require('yoku');
+    }
+
+    expect(yoku).to.throw(Error);
+  });
+
+  it('ignores modules', function(){
     var ctx = {};
     try {
       eval(wrap(one('test/sai/index.js').ignore('test/sai/bar.js').global().render()));
     } catch (err) {
     }
 
-    try {
+    function bar(){
       ctx.require('./bar');
-      throw new Error('./bar should not be in the bundle');
-    } catch (err){
     }
 
+    expect(bar).to.throw(Error);
   });
 
 
