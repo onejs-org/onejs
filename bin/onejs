@@ -7,6 +7,7 @@ argv = opt
   .options('target', { alias: 'o' })
   .options('require', { alias: 'r' })
   .options('ignore', { alias: 'i' })
+  .options('native', { alias: 'n' })
   .options('global', { alias: 'g' })
   .options('version', { alias: 'v' })
   .options('help', { alias: 'h' })
