@@ -126,7 +126,6 @@ describe('render', function(){
   var m = newModule('test/sai/index.js').render();
 
   it('returns the rendered output of a module', function(){
-    fs.writeFileSync('/tmp/sai.js', m);
     expect(eval(m).sai).to.be.true;
   });
 

@@ -6,22 +6,23 @@ describe('global', function(){
 
   beforeEach(function(){
     options.global(false);
+    options.native(false);
     require('../lib/render').renderModule.reset();
   });
 
   it('exposes a global require', function(){
-    var ctx = {};
+    var window = {};
     eval(wrap(one('test/sai/index.js').global().render()));
 
-    expect(ctx.require('./foo').foo).to.be.true;
-    expect(ctx.require('moto').moto).to.be.true;
+    expect(window.require('./foo').foo).to.be.true;
+    expect(window.require('moto').moto).to.be.true;
 
   });
 
   only('exposes if enabled', function(){
-    var ctx = {};
+    var window = {};
     eval(wrap(one('test/recursive/modules/a.js').global().render()));
-    expect(ctx.require).to.not.exit;
+    expect(window.require).to.not.exit;
   });
 
 });
@@ -30,12 +31,13 @@ describe('require', function(){
 
   beforeEach(function(){
     require('../lib/render').renderModule.reset();
+    require('../lib/options').native(false);
   });
 
   it('adds a new require call relative to the main module, into the bundle', function(){
-    var ctx = {};
+    var window = {};
     eval(wrap(one('test/sai/index.js').require('./lib/not-required').global().render()));
-    ctx.require('./lib/not-required');
+    window.require('./lib/not-required');
   });
 
 });
@@ -47,31 +49,31 @@ describe('ignore', function(){
   });
 
   it('ignores packages', function(){
-    var ctx = {};
+    var window = {};
     try {
       eval(wrap(one('test/sai/index.js').ignore('yoku').global().render()));
     } catch (err) {
     }
 
-    ctx.require('monouchi');
-    ctx.require('tsume');
+    window.require('monouchi');
+    window.require('tsume');
 
     function yoku(){
-      ctx.require('yoku');
+      window.require('yoku');
     }
 
     expect(yoku).to.throw(Error);
   });
 
   it('ignores modules', function(){
-    var ctx = {};
+    var window = {};
     try {
       eval(wrap(one('test/sai/index.js').ignore('test/sai/bar.js').global().render()));
     } catch (err) {
     }
 
     function bar(){
-      ctx.require('./bar');
+      window.require('./bar');
     }
 
     expect(bar).to.throw(Error);
@@ -80,8 +82,27 @@ describe('ignore', function(){
 
 });
 
+describe('native', function(){
 
+  beforeEach(function(){
+    require('../lib/render').renderModule.reset();
+    options.native(false);
+  });
+
+  it('forwards builtins & unresolved modules to native require', function(){
+    var window = { require: require };
+    eval(wrap(one('test/native/index.js').native().render()));
+    expect(window.native).to.be.equal(require('child_process'));
+  });
+
+  /*only('if native enabled', function(){
+    var window = { require: require };
+    eval(wrap(one('test/native/index.js').render()));
+    expect(window.native.spawn()).to.not.exist;
+  });*/
+
+});
 
 function wrap(code){
-  return '(function(){ ' + code + '}).call(ctx);';
+  return '(function(){ ' + code + '}).call(window);';
 }

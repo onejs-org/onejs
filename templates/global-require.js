@@ -1,4 +1,4 @@
-global.require = function(u){
+window.require = function(u){
   var key;
   for (key in require.m){
     if ( require.m[key][1][u] && require.m[ require.m[key][1][u] ] ){
@@ -6,5 +6,5 @@ global.require = function(u){
     }
   }
 
-  throw new Error('Cannot find module "' + u + '"');
+  {if-not-found}
 };
