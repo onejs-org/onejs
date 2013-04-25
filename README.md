@@ -1,11 +1,17 @@
-## onejs
+## OneJS
 
-Bundles NodeJS modules/libraries for web browsers
-
-### Install
+Bundles NodeJS modules/libraries for web browsers.
 
 ```bash
-$ npm install onejs
+$ one index.js > browser.js
 ```
 
-![](https://dl.dropbox.com/s/9q2p5mrqnajys22/npmel.jpg)
+Or, from NodeJS:
+
+```js
+one('index.js').save('bundle.js')
+```
+
+See tests for more examples and documentation.
+
+![](https://dl.dropboxusercontent.com/s/8d7jw10kjwveqs5/npmel_16.jpg)
