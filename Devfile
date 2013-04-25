@@ -5,8 +5,9 @@ target 'lib/templates', 'templates', ->
     write 'lib/templates/require.js', requireable(cat 'templates/require.js')
     write 'lib/templates/module.js', requireable(cat 'templates/module.js')
     write 'lib/templates/global-require.js', requireable(cat 'templates/global-require.js')
+    write 'lib/templates/json-module.js', requireable(cat 'templates/json-module.js')
 
 requireable = (str) ->
     output = 'module.exports = "'
-    output += str.replace(/\"/g, '\\"').replace /\n/g, '\\n'
+    output += str.replace(/\"/g, '\\"').replace(/\n/g, '\\n').replace /\\n$/, ''
     output += '";'

@@ -1,5 +1,6 @@
 function require(o){
   if(o[2]) return o[2].exports;
+  if(!/^f/.test(typeof o[0])) return o[0];
 
   o[0](function(u){
     if(!require.m[o[1][u]]) throw new Error('Cannot find module "' + u + '"');
