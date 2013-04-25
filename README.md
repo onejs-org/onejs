@@ -28,7 +28,7 @@ See tests for more examples and documentation.
 
     ENTRY
 
-       An entry might be any filename that's under an NPM package.
+       Any filename under an NPM package.
 
        Examples:
 
