@@ -28,7 +28,7 @@ See tests for more examples and documentation.
 
     ENTRY
 
-       Any filename under an NPM package.
+       An entry might be any filename that's under an NPM package.
 
        Examples:
 
@@ -38,16 +38,16 @@ See tests for more examples and documentation.
           myapp lib/foo/bar.js
 
     OPTIONS
-
-        -d      --debug       Enable SourceUrls and verbose mode.
         -o      --target      Target file to save the build.
 
+        -d      --debug       Enable SourceUrls and verbose mode.
         -g      --global      Expose a global require.
         -r      --require     Require given URI from the entry module. e.g -a .\/foo,underscore
         -i      --ignore      Ignore given modules or packages. e.g -i lib\/foo.js,underscore
+        -n      --native      Forward builtins & unresolved modules to native/global require.
 
         -v      --version     Show version and exit.
-        -h      --help        Show this help and exit.
+        -h      --help        Show this help and exist.
 
     DEBUGGING
 
