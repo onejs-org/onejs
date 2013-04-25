@@ -13,7 +13,6 @@ describe('newModule', function(){
 
   it('creates a module object from given filename', function(){
     expect(m.name).to.equal('index');
-
     expect(m.filename).to.equal('test/sai/index.js');
     expect(m.content).to.match(/sai = /);
   });
@@ -58,6 +57,12 @@ describe('newModule', function(){
 
   it('returns nil for wrong filenames', function(){
     expect(newModule('unexisting')).to.not.exists;
+  });
+
+  it('should not bundle not required modules', function(){
+    m.relatives.forEach(function(el){
+      expect(el.filename).to.not.match(/not-required/);
+    });
   });
 
 });
@@ -118,15 +123,10 @@ describe('newDependency', function(){
 
 describe('render', function(){
 
-  var m;
-
-  beforeEach(function(){
-    m = newModule('test/sai/index.js');
-  });
+  var m = newModule('test/sai/index.js').render();
 
   it('returns the rendered output of a module', function(){
-    fs.writeFileSync('test/sai-bundle.js', 'module.exports = ' + m.render().slice(1));
-    expect(require('./sai-bundle').sai).to.be.true;
+    expect(eval(m).sai).to.be.true;
   });
 
 });
@@ -146,7 +146,8 @@ describe('recursive requires', function(){
   it('bundles core modules with recursive require calls', function(){
 
     var m = newModule('test/recursive/core/a.js').render();
-    console.log(eval(m));
+
+    //console.log(eval(m));
 
   });
 

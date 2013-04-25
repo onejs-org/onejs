@@ -1,1 +1,1 @@
-{id} : [function(require, module, exports){ {content} }, {requires}]
+{id}:[function(require,module,exports){ {content} },{requires}]

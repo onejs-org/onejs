@@ -1,9 +1,11 @@
-;(function(process){
+;(function(process, global){
 
 require.m = { {map} };
 
-return require(require.m[{entry}]);
-
 {require}
 
-}({ env:{} }));
+{globalRequire}
+
+return require(require.m[{entry}]);
+
+}({ env:{} }, this));

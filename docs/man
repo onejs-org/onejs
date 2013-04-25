@@ -16,11 +16,11 @@
 
     OPTIONS
 
-        -d      --debug       Enable SourceUrls
+        -d      --debug       Enable SourceUrls and verbose mode.
         -o      --target      Target file to save the build.
 
+        -g      --global      Expose a global require.
         -r      --require     Add given optional package to the bundle. e.g -a event:*,util:*
-        -a      --alias       Register an alias name for a package. e.g crypto:crypto-browserify
         -t      --tie         Register a global variable as package. e.g --tie math:window.Math
         -e      --exclude     Exclude specified packages from the bundle.
 
