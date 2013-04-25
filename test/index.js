@@ -26,13 +26,13 @@ describe('newModule', function(){
   });
 
   it('contains the list of require calls', function(){
-    expect(m.requires).to.deep.equal(['monouchi', './core', './foo', './bar']);
+    expect(m.requires).to.deep.equal(['monouchi', './core', './foo', './bar', './package']);
   });
 
   it('contains all relative modules in same package', function(){
-    expect(m.relatives.length).to.equal(7);
-    expect(m.relatives.toString()).to.equal('core, foo, bar, cor, ge, eggs, span');
-    expect(m.relatives[3].relatives.toString()).to.equal('ge, eggs, span');
+    expect(m.relatives.length).to.equal(8);
+    expect(m.relatives.toString()).to.equal('core, foo, bar, package, cor, ge, eggs, span');
+    expect(m.relatives[4].relatives.toString()).to.equal('ge, eggs, span');
   });
 
   it('contains its  dependencies', function(){
@@ -43,7 +43,7 @@ describe('newModule', function(){
   });
 
   it('contains a map of its require calls with corressponding modules', function(){
-    expect(Object.keys(m.map)).to.deep.equal(['./core', './foo', './bar', 'monouchi']);
+    expect(Object.keys(m.map)).to.deep.equal(['./core', './foo', './bar', './package', 'monouchi']);
     expect(m.map.monouchi).to.equal(m.dependencies[0].id);
 
     m = newModule('test/sai/node_modules/yoku/index.js');
@@ -126,6 +126,7 @@ describe('render', function(){
   var m = newModule('test/sai/index.js').render();
 
   it('returns the rendered output of a module', function(){
+    fs.writeFileSync('/tmp/sai.js', m);
     expect(eval(m).sai).to.be.true;
   });
 
