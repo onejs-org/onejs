@@ -1,1 +1,1 @@
-{id}: [{content}]
+{id}: [,,{ exports: {content} }]
