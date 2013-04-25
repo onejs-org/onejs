@@ -1,4 +1,3 @@
-
     USAGE
 
         onejs [entry] [options]
@@ -20,9 +19,9 @@
         -o      --target      Target file to save the build.
 
         -g      --global      Expose a global require.
-        -r      --require     Add given optional package to the bundle. e.g -a event:*,util:*
-        -t      --tie         Register a global variable as package. e.g --tie math:window.Math
-        -e      --exclude     Exclude specified packages from the bundle.
+        -r      --require     Require given URI from the entry module. e.g -a .\/foo,underscore
+        -t      --tie         Register a global variable as package. e.g -t math=Math,pi=Math.PI
+        -i      --ignore      Ignore given modules or packages. e.g -i lib\/foo.js,underscore
 
         -v      --version     Show version and exit.
         -h      --help        Show this help and exist.
