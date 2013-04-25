@@ -47,7 +47,7 @@ See tests for more examples and documentation.
         -i      --ignore      Ignore given modules or packages. e.g -i lib\/foo.js,underscore
 
         -v      --version     Show version and exit.
-        -h      --help        Show this help and exist.
+        -h      --help        Show this help and exit.
 
     DEBUGGING
 
