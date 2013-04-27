@@ -1,6 +1,6 @@
 {
   "name": "one",
-  "version": "3.0.6",
+  "version": "3.0.7",
   "description": "Bundles NodeJS modules/libraries for web browsers",
   "main": "index.js",
   "scripts": {
