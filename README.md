@@ -1,4 +1,4 @@
-## OneJS
+## OneJS v3
 
 Bundles NodeJS modules/libraries for web browsers.
 
@@ -20,7 +20,7 @@ See tests for more examples and documentation.
 * Core Builtins Like Browserify; https://github.com/azer/core-modules
 * New CLI & JavaScript API
 
-## Manual
+## Command-line Manual
 
 ```
     USAGE
@@ -56,6 +56,20 @@ See tests for more examples and documentation.
 
         DEBUG=one:* onejs
 ```
+
+## JavaScript Manual
+
+```js
+one('index.js').save('bundle.js')
+```
+
+All Available methods:
+
+```js
+one('index.js').debug().global().require('foobar').ignore('jquery').native().save('/tmp/foo.js')
+```
+
+See the command-line manual above for details.
 
 ## TODO
 
