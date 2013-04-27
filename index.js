@@ -8,7 +8,13 @@ var log           = require('./lib/debug')('api'),
 module.exports = one;
 
 function one(entry){
-  var chain = newChain(options.set.debug, options.set.native, options.set.global, options.set.ignore, options.set.require, save, options.set.tie),
+  var chain = newChain(options.set.debug,
+                       options.set.native,
+                       options.set.global,
+                       options.set.ignore,
+                       options.set.require,
+                       options.set.tie,
+                       save),
       pack  = ( /\.js$/.test(entry) ? newModule : newDependency )( entry );
 
   if(!pack) return undefined;
