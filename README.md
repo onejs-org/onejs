@@ -24,7 +24,7 @@ See tests for more examples and documentation.
 
 * [MultiplayerChess.com](http://multiplayerchess.com) ([Build](http://multiplayerchess.com/mpc.js))
 * [FoxJS](http://github.com/azer/fox)  ([Build](https://github.com/azer/fox/blob/master/web/fox.js))
-* [Ana Kaynak])(http://anakaynak.com) ([Build](http://anakaynak.com/static/app/dist.js))
+* [Ana Kaynak](http://anakaynak.com) ([Build](http://anakaynak.com/static/app/dist.js))
 
 ## Command-line Manual
 
