@@ -120,7 +120,7 @@ Specified dependencies (including their subdependencies) can be splitted to diff
             "hello-world": "hello-world.js",
             "bar": {
                 "to": "bar.js",
-                "url: "/js/bar.js"
+                "url": "/js/bar.js"
             }
         }
     }
