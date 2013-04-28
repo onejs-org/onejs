@@ -22,7 +22,8 @@
     "attrs": "0.0.0"
   },
   "devDependencies": {
-    "fox": "*"
+    "fox": "*",
+    "jsify": "*"
   },
   "repository": {
     "url": "git@github.com:azer/onejs.git",

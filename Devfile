@@ -1,15 +1,7 @@
 all 'lib/templates'
 
-target 'lib/templates', 'templates', ->
-    write 'lib/templates/wrapper.js', requireable(cat 'templates/wrapper.js')
-    write 'lib/templates/require.js', requireable(cat 'templates/require.js')
-    write 'lib/templates/module.js', requireable(cat 'templates/module.js')
-    write 'lib/templates/global-require.js', requireable(cat 'templates/global-require.js')
-    write 'lib/templates/json-module.js', requireable(cat 'templates/json-module.js')
-    write 'lib/templates/if-not-found.js', requireable(cat 'templates/if-not-found.js')
-    write 'lib/templates/native-if-not-found.js', requireable(cat 'templates/native-if-not-found.js')
+task 'clean', ->
+    rm 'lib/templates.js'
 
-requireable = (str) ->
-    output = 'module.exports = "'
-    output += str.replace(/\"/g, '\\"').replace(/\n/g, ' ').replace(/\s$/, '').replace(/\s+/g, ' ')
-    output += '";'
+target 'lib/templates.js', 'templates', ->
+    exec 'jsify templates/* -o lib/templates.js'
