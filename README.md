@@ -14,11 +14,19 @@ one('index.js').save('bundle.js')
 
 See tests for more examples and documentation.
 
-## What's New?
+![](https://dl.dropbox.com/s/r29fc29iip3mj8u/onejs.jpg)
+
+#### What's New?
 
 * Static analysis
 * Core Builtins Like Browserify; https://github.com/azer/core-modules
 * New CLI & JavaScript API
+
+#### Who Uses OneJS v3?
+
+* [MultiplayerChess.com](http://multiplayerchess.com) ([Build](http://multiplayerchess.com/mpc.js))
+* [FoxJS](http://github.com/azer/fox)  ([Build](https://github.com/azer/fox/blob/master/web/fox.js))
+* [Ana Kaynak](http://anakaynak.com) ([Build](http://anakaynak.com/static/app/dist.js))
 
 ## Command-line Manual
 
