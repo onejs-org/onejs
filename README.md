@@ -26,10 +26,9 @@ See tests for more examples and documentation.
 
 #### V2 Compatibility
 
-Multiple bundles, async require and in-manifest configurations haven't implemented yet.
+* Multiple bundles, async require and in-manifest configurations haven't implemented yet.
+* No more main modules. The specified entry module will be called by the bundle itself.
 
-And, v3 doesn't have the notion of "main" module. It has entry modules, and the new bundles
-executes entry module automatically. It's now more similar to browserify.
 
 #### Who Uses OneJS v3?
 
