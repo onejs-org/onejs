@@ -28,6 +28,9 @@ See tests for more examples and documentation.
 
 Multiple bundles, async require and in-manifest configurations haven't implemented yet.
 
+And, v3 doesn't have the notion of "main" module. It has entry modules, and the new bundles
+executes entry module automatically. It's now more similar to browserify.
+
 #### Who Uses OneJS v3?
 
 * [MultiplayerChess.com](http://multiplayerchess.com) ([Build](http://multiplayerchess.com/mpc.js))
