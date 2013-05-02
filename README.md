@@ -24,6 +24,10 @@ See tests for more examples and documentation.
 * Core Builtins Like Browserify; https://github.com/azer/core-modules
 * New CLI & JavaScript API
 
+#### V2 Compatibility
+
+Multiple bundles, async require and in-manifest configurations haven't implemented yet.
+
 #### Who Uses OneJS v3?
 
 * [MultiplayerChess.com](http://multiplayerchess.com) ([Build](http://multiplayerchess.com/mpc.js))
