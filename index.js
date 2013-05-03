@@ -15,7 +15,7 @@ function one(entry){
                        options.set.require,
                        options.set.tie,
                        save),
-      pack  = ( /\.js$/.test(entry) ? newModule : newDependency )( entry );
+      pack  = ( /\.js$/.test(entry) ? newModule(entry) : newDependency(entry, true) );
 
   if(!pack) return undefined;
 

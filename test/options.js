@@ -8,14 +8,21 @@ describe('global', function(){
     options.global(false);
     options.native(false);
     require('../lib/render').renderModule.reset();
+    require('../lib/package').reset();
+    require('../lib/module').reset();
   });
 
   it('exposes a global require', function(){
     var window = {};
-    eval(wrap(one('test/sai/index.js').global().render()));
 
+    eval(wrap(one('test/sai/package.json').global().render()));
+
+    expect(window.require('sai').sai).to.be.true;
     expect(window.require('./foo').foo).to.be.true;
     expect(window.require('moto').moto).to.be.true;
+  });
+
+  it('allows changing the global path', function(){
 
   });
 
@@ -36,7 +43,8 @@ describe('require', function(){
 
   it('adds a new require call relative to the main module, into the bundle', function(){
     var window = {};
-    eval(wrap(one('test/sai/index.js').require('./lib/not-required').global().render()));
+    eval(wrap(one('test/sai/index.js').require('./lib/not-required').require('not-required').global().render()));
+    expect(window.require('not-required').notrequired).to.be.true;
     window.require('./lib/not-required');
   });
 
