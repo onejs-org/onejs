@@ -1,4 +1,12 @@
-window.require = function(u){
+var global;
+
+if (module.exports !== void 0) {
+  global = module.exports;
+} else {
+  global = window;
+};
+
+global.require = function(u){
 
   var key;
   for (key in require.m){
