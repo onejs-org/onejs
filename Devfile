@@ -1,4 +1,4 @@
-all 'lib/templates'
+all 'lib/templates.js'
 
 task 'clean', ->
     rm 'lib/templates.js'
