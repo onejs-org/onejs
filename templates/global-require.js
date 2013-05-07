@@ -1,4 +1,4 @@
-window.require = function(u){
+( typeof window != 'undefined' ? window : module.exports )['require'] = function(u){
 
   var key;
   for (key in require.m){
