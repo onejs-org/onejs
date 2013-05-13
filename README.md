@@ -1,4 +1,4 @@
-## OneJS v3
+## OneJS v3 [![Build Status](https://travis-ci.org/azer/onejs.png)](https://travis-ci.org/azer/onejs)
 
 Bundles NodeJS modules/libraries for web browsers.
 
