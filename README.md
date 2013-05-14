@@ -36,7 +36,9 @@ See tests for more examples and documentation.
 * [FoxJS](http://github.com/azer/fox)  ([Build](https://github.com/azer/fox/blob/master/web/fox.js))
 * [Ana Kaynak](http://anakaynak.com) ([Build](http://anakaynak.com/static/app/dist.js))
 
-## Command-line Manual
+## Usage
+
+### From Command-line
 
 ```
     USAGE
@@ -73,7 +75,7 @@ See tests for more examples and documentation.
         DEBUG=one:* onejs
 ```
 
-## JavaScript Manual
+### From JavaScript
 
 ```js
 one('index.js').save('bundle.js')
