@@ -23,6 +23,4 @@ var cli     = require('../lib/cli'),
 if(argv.help) help();
 if(argv.version) version();
 
-process.stdout.write('\u001B[2J\u001B[0;0f');
-
 cli(argv);
