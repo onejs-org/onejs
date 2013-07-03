@@ -29,8 +29,7 @@ See tests for more examples and documentation.
 * Multiple bundles, async require and in-manifest configurations haven't implemented yet.
 * No more main modules. The specified entry module will be called by the bundle itself.
 
-
-#### Who Uses OneJS v3?
+#### Projects Using V3
 
 * [MultiplayerChess.com](http://multiplayerchess.com) ([Build](http://multiplayerchess.com/mpc.js))
 * [FoxJS](http://github.com/azer/fox)  ([Build](https://github.com/azer/fox/blob/master/web/fox.js))
