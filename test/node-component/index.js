@@ -1,4 +1,1 @@
-module.exports = {
-  englishTime: require('english-time'),
-  collection: require('collection')
-};
+module.exports = require('./lib/rel');
