@@ -1,0 +1,20 @@
+{
+  "name": "node-component",
+  "repo": "azer/node-component",
+  "description": "Example that uses both NPM and Component modules",
+  "version": "0.0.1",
+  "keywords": [],
+  "dependencies": {
+    "component/collection": "*"
+  },
+  "development": {},
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js",
+    "template.js"
+  ],
+  "styles": [
+    "node-component.css"
+  ]
+}

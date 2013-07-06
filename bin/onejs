@@ -16,11 +16,9 @@ argv = opt
 !/one\:/.test(process.env.DEBUG) &&
   ( process.env.DEBUG = (process.env.DEBUG || '') + ',one:cli,one:api,one:options' + ( argv.debug ? ',one:package,one:requires' : '' ) );
 
-var cli     = require('../lib/cli'),
-    help    = require('../lib/help'),
-    version = require('../lib/version');
+var cli = require('../lib/cli');
 
-if(argv.help) help();
-if(argv.version) version();
+if(argv.help) require('show-help');
+if(argv.version) require('show-version');
 
 cli(argv);

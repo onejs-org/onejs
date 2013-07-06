@@ -1,0 +1,16 @@
+{
+  "name": "node-component",
+  "version": "0.0.0",
+  "description": "example project that uses both component and NPM modules",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "english-time": "0.x"
+  },
+  "repository": "",
+  "author": "",
+  "license": "BSD",
+  "readmeFilename": "Readme.md"
+}
