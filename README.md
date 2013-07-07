@@ -22,6 +22,7 @@ See tests for more examples and documentation.
 
 * Static analysis
 * Core Builtins Like Browserify; https://github.com/azer/core-modules
+* Component Support
 * New CLI & JavaScript API
 
 #### V2 Compatibility
