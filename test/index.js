@@ -1,6 +1,7 @@
 var newModule     = require("../lib/module"),
     newPackage    = require('../lib/package'),
     newDependency = require('../lib/dependency'),
+    packageOf     = require('../lib/package-of'),
     fs            = require('fs');
 
 describe('newModule', function(){
@@ -92,6 +93,29 @@ describe('newPackage', function(){
   });
 
 });
+
+describe('packageOf', function(){
+
+  it('returns the package given module belongs to', function(){
+    var m = newModule('test/sai/index.js'),
+        p = packageOf(m);
+
+    expect(p.name).to.equal('sai');
+    expect(p.component).to.not.exist;
+    expect(m.relatives[2].pack).to.equal(m.pack);
+    expect(m.relatives[4].pack).to.equal(m.pack);
+
+    m = newModule('test/node-component/index.js');
+    p = packageOf(m);
+
+    expect(p.name).to.equal('node-component');
+    expect(p.component.name).to.equal('node-component');
+    expect(m.relatives[0].pack).to.equal(m.pack);
+
+  });
+
+});
+
 
 describe('newDependency', function(){
 
