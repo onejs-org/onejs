@@ -1,6 +1,6 @@
 ## OneJS v3 [![Build Status](https://travis-ci.org/azer/onejs.png)](https://travis-ci.org/azer/onejs)
 
-Bundles NodeJS modules/libraries for web browsers.
+Bundles NodeJS and Component modules for the web.
 
 ```bash
 $ one index.js > browser.js
