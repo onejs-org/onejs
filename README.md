@@ -40,40 +40,7 @@ See tests for more examples and documentation.
 
 ### From Command-line
 
-```
-    USAGE
-
-        onejs [entry] [options]
-
-    ENTRY
-
-       An entry might be any filename that's under an NPM package.
-
-       Examples:
-
-          onejs myapp/index.js
-          cd myapp && onejs
-          myapp test/index.js
-          myapp lib/foo/bar.js
-
-    OPTIONS
-        -o      --target      Target file to save the build.
-
-        -d      --debug       Enable SourceUrls and verbose mode.
-        -g      --global      Expose a global require.
-        -r      --require     Require given URI from the entry module. e.g -a .\/foo,underscore
-        -i      --ignore      Ignore given modules or packages. e.g -i lib\/foo.js,underscore
-        -n      --native      Forward builtins & unresolved modules to native/global require.
-
-        -v      --version     Show version and exit.
-        -h      --help        Show this help and exist.
-
-    DEBUGGING
-
-        Enable debugging by setting the environment variable "DEBUG" as following
-
-        DEBUG=one:* onejs
-```
+See [docs/man](https://github.com/azer/onejs/blob/master/docs/man)
 
 ### From JavaScript
 
@@ -87,7 +54,18 @@ All Available methods:
 one('index.js').debug().global().require('foobar').ignore('jquery').native().save('/tmp/foo.js')
 ```
 
-See the command-line manual above for details.
+See [docs/man](https://github.com/azer/onejs/blob/master/docs/man) the command-line manual above for details.
+
+### Building Components
+
+OneJS will also work with [Component](http://github.com/component/component) modules. You can pick any module from Component,
+install in your project and bundle it the same way.
+
+```bash
+$ npm install
+$ component install
+$ onejs index.js -o dist.js
+```
 
 ## TODO
 
