@@ -14,8 +14,6 @@ one('index.js').save('bundle.js')
 
 See tests for more examples and documentation.
 
-**[Looking for OneJS v2?](https://github.com/azer/onejs/tree/v2.5)**
-
 ![](https://dl.dropbox.com/s/r29fc29iip3mj8u/onejs.jpg)
 
 #### What's New?
