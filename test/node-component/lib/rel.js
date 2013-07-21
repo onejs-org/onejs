@@ -1,4 +1,5 @@
 module.exports = {
   englishTime: require('english-time'),
-  collection: require('collection')
+  collection: require('collection'),
+  common: require('common')
 };
