@@ -1,7 +1,8 @@
+jsify = bin 'jsify'
+
 all 'lib/templates.js'
 
 task 'clean', ->
     rm 'lib/templates.js'
 
-target 'lib/templates.js', 'templates', ->
-    exec 'jsify templates/* -o lib/templates.js'
+target 'lib/templates.js', 'templates', jsify 'templates/* -o lib/templates.js'
