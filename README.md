@@ -69,5 +69,3 @@ $ onejs index.js -o dist.js
 
 * -t --tie
 * Async Require & Multiple Bundles
-
-![](https://dl.dropboxusercontent.com/s/8d7jw10kjwveqs5/npmel_16.jpg)
