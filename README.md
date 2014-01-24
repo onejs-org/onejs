@@ -1,4 +1,8 @@
-## OneJS v3 [![Build Status](https://travis-ci.org/azer/onejs.png)](https://travis-ci.org/azer/onejs)
+## Deprecated
+
+Please use [Browserify](http://github.com/substack/node-browserify)
+
+## Manual
 
 Bundles NodeJS and Component modules for the web.
 
