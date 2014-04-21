@@ -1,6 +1,6 @@
 ## Deprecated
 
-Please use [Browserify](http://github.com/substack/node-browserify)
+#### Please use [Browserify](http://github.com/substack/node-browserify)
 
 ## Manual
 
